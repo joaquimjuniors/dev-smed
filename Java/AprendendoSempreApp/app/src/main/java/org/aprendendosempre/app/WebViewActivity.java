@@ -81,6 +81,8 @@ public class WebViewActivity extends AppCompatActivity {
                 }
             });
 
+            //função que habilita o download via download manager pelo webview
+            //
             myWebView.setDownloadListener(new DownloadListener() {
                 public void onDownloadStart(String url, String userAgent,
                                             String contentDisposition, String mimetype,

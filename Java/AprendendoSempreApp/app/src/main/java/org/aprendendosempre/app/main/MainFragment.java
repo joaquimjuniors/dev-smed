@@ -124,7 +124,7 @@ public class MainFragment extends Fragment {
         if(bundle.getString("Chave")!= null)
         {
             key = ""+bundle.getString("Chave");
-            Toast toast = Toast.makeText(getContext(),"k "+bundle.getString("Chave"),Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(),"Line:127 nº: "+bundle.getString("Chave"),Toast.LENGTH_SHORT);
             toast.show();
         }
 
