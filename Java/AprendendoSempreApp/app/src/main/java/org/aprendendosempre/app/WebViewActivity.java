@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -24,6 +25,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -40,7 +42,14 @@ import java.util.Locale;
 
 public class WebViewActivity extends AppCompatActivity {
 
-    WebView myWebView;
+    String url = "";
+
+    private static final int WRITE_PERMISSION = 1001;
+
+    private WebView myWebView;
+    DownloadManager dm;
+    String uriString;
+    private long enq;
     Exception exception;
     ProgressBar progressBar;
 
@@ -81,22 +90,70 @@ public class WebViewActivity extends AppCompatActivity {
                 }
             });
 
-            //função que habilita o download via download manager pelo webview
-            //
+            // funcao para abrir o arquivo apos fazer download
+            BroadcastReceiver receiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+                        long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
+                        DownloadManager.Query query = new DownloadManager.Query();
+                        query.setFilterById(enq);
+                        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                        Cursor c = dm.query(query);
+                        if (c.moveToFirst()) {
+                            int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+                            if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
+                                uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                            }
+                        }
+                    }
+                }
+            };
+
+            // funcao que habilita o download via download manager pelo webview
             myWebView.setDownloadListener(new DownloadListener() {
-                public void onDownloadStart(String url, String userAgent,
-                                            String contentDisposition, String mimetype,
-                                            long contentLength) {
-                    DownloadManager.Request request = new DownloadManager.Request( Uri.parse(url));
-                    request.allowScanningByMediaScanner();
+
+                public void onDownloadStart(String url, String userAgent, String contentDisposition,
+                                            String mimetype, long contentLength) {
+
+                    Uri downloadUri = Uri.parse(url);
+                    DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                            .setAllowedOverMetered(true)
+                            .setAllowedOverRoaming(true);
+//                            .allowScanningByMediaScanner();
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Atividade.pdf");
-                    DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Atividade.pdf");                    dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+//                    enq = dm.enqueue(request);
                     dm.enqueue(request);
-                    //OpenPDF();
+                    Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
+                    OpenPDF();
                 }
 
                 public void OpenPDF() {
+                    File file = new File(Environment.getExternalStorageDirectory() +
+                            "/Download/" + "Atividade.pdf");
+                    if (!file.isDirectory()) {
+                        file.mkdir();
+                    }
+                    Intent pdfIntent = new Intent("com.adobe.reader");
+                    pdfIntent.setType("application/pdf");
+                    pdfIntent.setAction(Intent.ACTION_VIEW);
+                    pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
+                            WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", file);
+                    pdfIntent.setDataAndType(uri, "application/pdf");
+                    try {
+                        startActivity(pdfIntent);
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(WebViewActivity.this, "Error :" + e , Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                public void OpenPDFExample() {
                     File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator +
                             "myPDFfile.pdf");
                     //File file = new File(" content://storage/emulated/0/Download/myPDFfile.pdf");
@@ -113,8 +170,7 @@ public class WebViewActivity extends AppCompatActivity {
                     }
                 }
 
-                public void OpenPDF2()
-                {
+                public void OpenPDF2() {
                     File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator +
                             "myPDFfile.pdf");
                     Intent target = new Intent(Intent.ACTION_VIEW);
@@ -130,17 +186,38 @@ public class WebViewActivity extends AppCompatActivity {
                 }
             });
 
-
-
-
-
-        }
-        catch (Exception e)
-        {
+//          registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        } catch (Exception e) {
             exception = e;
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_SHORT).show();
         }
     }
+
+//    // funcao para abrir o arquivo apos fazer download
+//    BroadcastReceiver receiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String action = intent.getAction();
+//            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+//                long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
+//                DownloadManager.Query query = new DownloadManager.Query();
+//                query.setFilterById(enq);
+//                dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+//                Cursor c = dm.query(query);
+//                if (c.moveToFirst()) {
+//                    int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+//                    if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
+//                        uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+//                    }
+//                }
+//            }
+//        }
+//    };
+//
+//    @Override
+//    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
+//        return super.registerReceiver(this.receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

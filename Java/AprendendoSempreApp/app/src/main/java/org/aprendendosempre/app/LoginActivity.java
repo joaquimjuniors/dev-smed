@@ -21,13 +21,17 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText loginTemp = findViewById(R.id.txtBoxLogin);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("Chave", ""+loginTemp.getText()); //aqui seria passado algum id para acessar a plataforma
-                idTemp = ""+loginTemp.getText();
-                startActivity(intent);
-                finish();
+                openMainActivity();
             }
         });
+    }
+
+    private void openMainActivity() {
+        EditText loginTemp = findViewById(R.id.txtBoxLogin);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Chave", ""+loginTemp.getText()); //aqui seria passado algum id para acessar a plataforma
+        idTemp = "" + loginTemp.getText();
+        startActivity(intent);
+        finish();
     }
 }

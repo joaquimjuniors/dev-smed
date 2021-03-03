@@ -1,10 +1,16 @@
 package org.aprendendosempre.app.main;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 
@@ -51,15 +57,41 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         //temp
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.main_activity);
 
+        isStoragePermissionGranted();
 
         loadFragment(new MainFragment());
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(this);
+    }
+
+    public boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED) {
+                Log.v("PERMISSIONS", "Permissao autorizada");
+                return true;
+            } else {
+                Log.v("PERMISSIONS", "Permission is garnted");
+                ActivityCompat.requestPermissions(this, new String[] {
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return true;
+            }
+        } else {
+            Log.v("PERMISSIONS", "Permission is granted");
+            return  true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v("PERMISSIONS", "Permission: " + permissions[0] + "was" + grantResults[0]);
+        }
     }
 
     @Override
