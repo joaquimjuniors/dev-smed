@@ -146,8 +146,10 @@ public class WebViewActivity extends AppCompatActivity {
                     Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
                             WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", file);
                     pdfIntent.setDataAndType(uri, "application/pdf");
+
+                    Intent intent = Intent.createChooser(pdfIntent, "Open File");
                     try {
-                        startActivity(pdfIntent);
+                        startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         Toast.makeText(WebViewActivity.this, "Error :" + e , Toast.LENGTH_SHORT).show();
                     }
