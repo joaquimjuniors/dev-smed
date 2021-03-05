@@ -31,8 +31,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6cebb10f-2ef6-48ea-aaf0-bf3124bd8018" name="Default Changelist" comment="Pequenas alterações no Download Manager">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/secrets.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/xml/actions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_journeyapps_zxing_android_embedded_3_6_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_journeyapps_zxing_android_embedded_3_6_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/WebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/WebViewActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/src/pages/GetStarted/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/src/pages/Login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/src/pages/Login/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/src/pages/Webview/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/src/pages/Webview/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../React-native/ApredendoSempreVCA/src/routes.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,8 +61,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="resourceFile" />
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -75,6 +88,9 @@
   <component name="RecentsManager">
     <key name="android.template.1876426311">
       <recent name="org.aprendendosempre.app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\samuel\Documents\dev-smed\Java\AprendendoSempreApp\app\src\main\res\values" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\luisc\AndroidStudioProjects\AprendendoSempre\app\src\main\res\mipmap-hdpi" />
@@ -220,10 +236,11 @@
     </state>
     <state x="92" y="92" width="1182" height="544" key="AVDManager/0.0.1366.728/1366.0.1024.728@0.0.1366.728" timestamp="1614205283583" />
     <state x="97" y="114" width="1247" height="673" key="AVDManager/0.0.1440.900@0.0.1440.900" timestamp="1614800156474" />
-    <state x="263" y="119" key="AndroidCreateResourceFileDialog" timestamp="1614377743515">
+    <state x="263" y="119" key="AndroidCreateResourceFileDialog" timestamp="1614945111012">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="263" y="119" key="AndroidCreateResourceFileDialog/0.0.1366.728/1366.0.1024.728@0.0.1366.728" timestamp="1614377743515" />
+    <state x="263" y="119" key="AndroidCreateResourceFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1614945111012" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1614804965961">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
