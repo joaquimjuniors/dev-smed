@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.DownloadListener;
+import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -61,7 +62,7 @@ public class WebViewActivity extends AppCompatActivity {
     ProgressBar progressBar;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
-    File AtividadeBaixada;
+    String atvName;
     //Button read;
     //TextView output;
 
@@ -129,6 +130,7 @@ public class WebViewActivity extends AppCompatActivity {
                 public void onDownloadStart(String url, String userAgent, String contentDisposition,
                                             String mimetype, long contentLength) {
 
+                    String humanReadableFileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
                     Uri downloadUri = Uri.parse(url);
                     DownloadManager.Request request = new DownloadManager.Request(downloadUri);
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
@@ -136,30 +138,28 @@ public class WebViewActivity extends AppCompatActivity {
                             .setAllowedOverRoaming(true)
                             .allowScanningByMediaScanner();
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Atividade.pdf");
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, humanReadableFileName);
                     dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                     enq = dm.enqueue(request);
                     dm.enqueue(request);
                     Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
-                    loadFile();
+                    registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+                    atvName = humanReadableFileName;
                     //OpenPDF();
                     //Test();
                 }
 
-                public void Test(){
-                    Intent intent = new Intent(WebViewActivity.this, Pdfreader.class);
-                    intent.putExtra("nome","Atividade.pdf");
-                    startActivity(intent);
-                }
+                BroadcastReceiver onComplete=new BroadcastReceiver() {
+                    public void onReceive(Context ctxt, Intent intent) {
+
+                        loadFile(atvName);
+                    }
+                };
 
                 public void OpenPDF(File atv) {
-                    //File file = new File(Environment.getExternalStorageDirectory()+"/Download/Atividade.pdf");
-                    //if (!file.isDirectory()) {
-                        //file.mkdir();
-                    //}
 
                     Intent pdfIntent = new Intent("com.adobe.reader");
-                    //pdfIntent.setType("application/pdf");
                     pdfIntent.setAction(Intent.ACTION_VIEW);
                     pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NO_HISTORY);
                     Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
@@ -176,7 +176,7 @@ public class WebViewActivity extends AppCompatActivity {
 
 
 
-                public void loadFile(){
+                public void loadFile(String atv){
                     String state = Environment.getExternalStorageState();
                     if (Environment.MEDIA_MOUNTED.equals(state)) {
                         if (Build.VERSION.SDK_INT >= 23) {
@@ -184,12 +184,15 @@ public class WebViewActivity extends AppCompatActivity {
                                 File sdcard = Environment.getExternalStorageDirectory();
                                 File dir = new File(sdcard.getAbsolutePath() + "/Download/");
                                 if(dir.exists()) {
-                                    File file = new File(dir, "Atividade.pdf");
+                                    File file = new File(dir, ""+atv);
                                     OpenPDF(file);
 
                                 }
                             } else {
                                 requestPermission(); // Code for permission
+                                if(checkPermission()){
+                                    loadFile(atvName);
+                                }
                             }
                         } else {
                             File sdcard = Environment.getExternalStorageDirectory();
