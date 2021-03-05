@@ -11,6 +11,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -28,12 +29,18 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.datami.smi.SdState;
 import com.google.common.net.InternetDomainName;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -52,6 +59,11 @@ public class WebViewActivity extends AppCompatActivity {
     private long enq;
     Exception exception;
     ProgressBar progressBar;
+
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    File AtividadeBaixada;
+    //Button read;
+    //TextView output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,30 +133,37 @@ public class WebViewActivity extends AppCompatActivity {
                     DownloadManager.Request request = new DownloadManager.Request(downloadUri);
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
                             .setAllowedOverMetered(true)
-                            .setAllowedOverRoaming(true);
-//                            .allowScanningByMediaScanner();
+                            .setAllowedOverRoaming(true)
+                            .allowScanningByMediaScanner();
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Atividade.pdf");                    dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "Atividade.pdf");
                     dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-//                    enq = dm.enqueue(request);
+                    enq = dm.enqueue(request);
                     dm.enqueue(request);
                     Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
-                    OpenPDF();
+                    loadFile();
+                    //OpenPDF();
+                    //Test();
                 }
 
-                public void OpenPDF() {
-                    File file = new File(Environment.getExternalStorageDirectory() +
-                            "/Download/" + "Atividade.pdf");
-                    if (!file.isDirectory()) {
-                        file.mkdir();
-                    }
+                public void Test(){
+                    Intent intent = new Intent(WebViewActivity.this, Pdfreader.class);
+                    intent.putExtra("nome","Atividade.pdf");
+                    startActivity(intent);
+                }
+
+                public void OpenPDF(File atv) {
+                    //File file = new File(Environment.getExternalStorageDirectory()+"/Download/Atividade.pdf");
+                    //if (!file.isDirectory()) {
+                        //file.mkdir();
+                    //}
+
                     Intent pdfIntent = new Intent("com.adobe.reader");
-                    pdfIntent.setType("application/pdf");
+                    //pdfIntent.setType("application/pdf");
                     pdfIntent.setAction(Intent.ACTION_VIEW);
-                    pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NO_HISTORY);
                     Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
-                            WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", file);
+                            WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", atv);
                     pdfIntent.setDataAndType(uri, "application/pdf");
 
                     Intent intent = Intent.createChooser(pdfIntent, "Open File");
@@ -155,43 +174,79 @@ public class WebViewActivity extends AppCompatActivity {
                     }
                 }
 
-                public void OpenPDFExample() {
-                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator +
-                            "myPDFfile.pdf");
-                    //File file = new File(" content://storage/emulated/0/Download/myPDFfile.pdf");
-                    Uri path = FileProvider.getUriForFile(WebViewActivity.this,WebViewActivity.this.getApplicationContext().getPackageName() + ".provider",file);
-                    Log.i("Fragment2", String.valueOf(path));
-                    Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
-                    pdfOpenintent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    pdfOpenintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                    pdfOpenintent.setDataAndType(path, "application/pdf");
-                    try {
-                        startActivity(pdfOpenintent);
-                    } catch (ActivityNotFoundException e) {
-                        Log.d("",""+e);
+
+
+                public void loadFile(){
+                    String state = Environment.getExternalStorageState();
+                    if (Environment.MEDIA_MOUNTED.equals(state)) {
+                        if (Build.VERSION.SDK_INT >= 23) {
+                            if (checkPermission()) {
+                                File sdcard = Environment.getExternalStorageDirectory();
+                                File dir = new File(sdcard.getAbsolutePath() + "/Download/");
+                                if(dir.exists()) {
+                                    File file = new File(dir, "Atividade.pdf");
+                                    OpenPDF(file);
+
+                                }
+                            } else {
+                                requestPermission(); // Code for permission
+                            }
+                        } else {
+                            File sdcard = Environment.getExternalStorageDirectory();
+                            File dir = new File(sdcard.getAbsolutePath() + "/Download/");
+                            if(dir.exists()) {
+                                File file = new File(dir, "Atividade.pdf");
+                                OpenPDF(file);
+
+
+                            }
+                        }
                     }
                 }
 
-                public void OpenPDF2() {
-                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator +
-                            "myPDFfile.pdf");
-                    Intent target = new Intent(Intent.ACTION_VIEW);
-                    target.setDataAndType(Uri.fromFile(file),"application/pdf");
-                    target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-                    Intent intent = Intent.createChooser(target, "Open File");
-                    try {
-                        startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        // Instruct the user to install a PDF reader here, or something
+                private boolean checkPermission() {
+                    int result = ContextCompat.checkSelfPermission(WebViewActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE);
+                    if (result == PackageManager.PERMISSION_GRANTED) {
+                        return true;
+                    } else {
+                        return false;
                     }
                 }
+                private void requestPermission() {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(WebViewActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        Toast.makeText(WebViewActivity.this, "Write External Storage permission allows us to read files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
+                    } else {
+                        ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                    }
+                }
+
+
+
+
+
+
+
+
+
+
             });
 
 //          registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         } catch (Exception e) {
             exception = e;
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("value", "Permission Granted, Now you can use local drive .");
+                } else {
+                    Log.e("value", "Permission Denied, You cannot use local drive .");
+                }
+                break;
         }
     }
 
