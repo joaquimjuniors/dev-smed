@@ -4,7 +4,7 @@ public class Site {
 
     private String title;
     private int img;
-    private String url;
+    private final String url;
 
     public Site(String title, int img, String url){
         this.title = title;

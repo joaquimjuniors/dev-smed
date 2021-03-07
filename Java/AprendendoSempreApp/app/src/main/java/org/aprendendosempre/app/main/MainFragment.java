@@ -161,7 +161,7 @@ public class MainFragment extends Fragment {
 
     public class RecyclerViewMargin extends RecyclerView.ItemDecoration {
         private final int columns;
-        private int margin;
+        private final int margin;
 
         /**
          * constructor

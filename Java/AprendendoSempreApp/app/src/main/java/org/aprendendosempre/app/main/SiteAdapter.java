@@ -21,9 +21,9 @@ import java.util.List;
 
 public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.ViewHolder> implements Filterable {
 
-    private Context context;
-    private List<Site> list;
-    private List<Site> listFull;
+    private final Context context;
+    private final List<Site> list;
+    private final List<Site> listFull;
 
 
     @Override
@@ -69,7 +69,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.ViewHolder> im
         return exampleFilter;
     }
 
-    private Filter exampleFilter = new Filter() {
+    private final Filter exampleFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Site> filteredList = new ArrayList<>();
