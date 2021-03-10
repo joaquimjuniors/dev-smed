@@ -11,6 +11,7 @@ public class MainApplication extends Application implements SdStateChangeListene
     private Toast toast;
     private Context context;
     private int duration;
+    SdState tempState;
 
     @Override
     public void onCreate() {
@@ -26,16 +27,17 @@ public class MainApplication extends Application implements SdStateChangeListene
         sdState = currentSmiResult.getSdState();
         Log.d(TAG, "sponsored data state : "+sdState);
         CharSequence text = "";
-        if(sdState == SdState.SD_AVAILABLE) {
+        if(sdState == SdState.SD_AVAILABLE && tempState != SdState.SD_AVAILABLE) {
             text = "Seu acesso a esse site é gratuito.";
-        } else if(sdState == SdState.SD_NOT_AVAILABLE) {
+        } else if(sdState == SdState.SD_NOT_AVAILABLE && tempState != SdState.SD_NOT_AVAILABLE) {
             text = "Seu acesso a esse site poderá acarretar cobranças em seu plano de dados.";
             Log.d(TAG, " - reason: " + currentSmiResult.getSdReason());
-        } else if(sdState == SdState.WIFI) {
+        } else if(sdState == SdState.WIFI && tempState != SdState.WIFI) {
             // device is in wifi
             text = "Acesso via wifi.";
             Log.d(TAG, "wifi - reason: " + currentSmiResult.getSdReason());
         }
+        tempState = sdState;
         toast = Toast.makeText(context, text, duration);
         toast.show();
     }

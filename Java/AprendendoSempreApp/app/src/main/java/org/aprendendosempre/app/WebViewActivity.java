@@ -42,9 +42,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,7 +59,6 @@ public class WebViewActivity extends AppCompatActivity {
     private WebView myWebView;
     DownloadManager dm;
     String uriString;
-    private long enq;
     Exception exception;
     ProgressBar progressBar;
 
@@ -70,6 +71,7 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
+
             setContentView(R.layout.activity_web_view);
             myWebView = findViewById(R.id.webView);
 
@@ -101,48 +103,41 @@ public class WebViewActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     myWebView.setVisibility(View.VISIBLE);
                 }
-            });
+                //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
+                List<String> whiteHosts = Arrays.asList("aprendendosempre.org","smed.pmvc.ba.gov.br");
 
-            // funcao para abrir o arquivo apos fazer download
-            BroadcastReceiver receiver = new BroadcastReceiver() {
                 @Override
-                public void onReceive(Context context, Intent intent) {
-                    String action = intent.getAction();
-                    if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-                        long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-                        DownloadManager.Query query = new DownloadManager.Query();
-                        query.setFilterById(enq);
-                        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                        Cursor c = dm.query(query);
-                        if (c.moveToFirst()) {
-                            int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-                            if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-                                uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                            }
-                        }
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    String host = Uri.parse(url).getHost();
+                    if(whiteHosts.contains(host)) {
+                        return false;
                     }
+
+                    view.loadUrl("smed.pmvc.ba.gov.br/estudoremoto/login-control");
+                    return true;
                 }
-            };
+            });
 
             // funcao que habilita o download via download manager pelo webview
             myWebView.setDownloadListener(new DownloadListener() {
 
                 public void onDownloadStart(String url, String userAgent, String contentDisposition,
                                             String mimetype, long contentLength) {
-
                     String humanReadableFileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+
                     Uri downloadUri = Uri.parse(url);
                     DownloadManager.Request request = new DownloadManager.Request(downloadUri);
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
                             .setAllowedOverMetered(true)
                             .setAllowedOverRoaming(true)
                             .allowScanningByMediaScanner();
+
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                     request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, humanReadableFileName);
                     dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                    enq = dm.enqueue(request);
                     dm.enqueue(request);
                     Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
+
                     registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
                     atvName = humanReadableFileName;
@@ -253,32 +248,6 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
-//    // funcao para abrir o arquivo apos fazer download
-//    BroadcastReceiver receiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            String action = intent.getAction();
-//            if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-//                long downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0);
-//                DownloadManager.Query query = new DownloadManager.Query();
-//                query.setFilterById(enq);
-//                dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-//                Cursor c = dm.query(query);
-//                if (c.moveToFirst()) {
-//                    int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
-//                    if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
-//                        uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-//                    }
-//                }
-//            }
-//        }
-//    };
-//
-//    @Override
-//    public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
-//        return super.registerReceiver(this.receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_web_view, menu);
@@ -366,10 +335,10 @@ public class WebViewActivity extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
+
             try {
                  if(url.startsWith("javascript"))
                      return false;
-
 
                  if (url.startsWith("http") || url.startsWith("https"))
                  {

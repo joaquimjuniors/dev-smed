@@ -29,22 +29,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*try {
+        try {
             super.onCreate(savedInstanceState);
-           // String mySdkKey = getString(R.string.SDK_KEY); //Use the SDK API access key given by Datami.
-            String mySdkKey = getString(0); //Use the SDK API access key given by Datami.
+            String mySdkKey = getString(R.string.SDK_KEY); //Use the SDK API access key given by Datami.
             String myUserId = "";
             int sdIconId = R.drawable.ic_launcher_foreground;
 
-//        List<String> exclusionDomains = new ArrayList<String>(2);
-//        exclusionDomains.add("www.google.com");
-//        exclusionDomains.add("www.google.com.br");
-//        SmiSdk.initSponsoredData(mySdkKey, this, myUserId, sdIconId, false, exclusionDomains);
+//          List<String> exclusionDomains = new ArrayList<String>(2);
+//          exclusionDomains.add("www.google.com");
+//          exclusionDomains.add("www.google.com.br");
+//          SmiSdk.initSponsoredData(mySdkKey, this, myUserId, sdIconId, false, exclusionDomains);
             SmiSdk.initSponsoredData(mySdkKey, this, myUserId, sdIconId, false);
 
             setContentView(R.layout.main_activity);
-
-
             loadFragment(new MainFragment());
 
             BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
@@ -53,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         } catch (Exception e) {
 
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_LONG).show();
-        }*/
-
+        }
+/*
         //temp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         loadFragment(new MainFragment());
 
         BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(this);
+        navigationView.setOnNavigationItemSelectedListener(this);*/
     }
 
     public boolean isStoragePermissionGranted() {

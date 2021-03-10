@@ -30,19 +30,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cebb10f-2ef6-48ea-aaf0-bf3124bd8018" name="Default Changelist" comment="Pequenas alterações no Download Manager">
+    <list default="true" id="6cebb10f-2ef6-48ea-aaf0-bf3124bd8018" name="Default Changelist" comment="adicionado leitor de pdf e fix">
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/WebViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/WebViewActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/main/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/main/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/main/MainFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/aprendendosempre/app/main/MainFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614969934085</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adicionado leitor de pdf e fix">
+      <created>1614973156874</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1614973156874</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,7 +225,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Testando commit" />
     <MESSAGE value="Pequenas alterações no Download Manager" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pequenas alterações no Download Manager" />
+    <MESSAGE value="adicionado leitor de pdf e fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="adicionado leitor de pdf e fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="0" y="0" width="908" height="900" key="#Java" timestamp="1614802623697">
@@ -248,30 +258,30 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="580" y="184" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1614887236460" />
-    <state width="1556" height="218" key="GridCell.Tab.0.bottom" timestamp="1614887053312">
+    <state width="1556" height="218" key="GridCell.Tab.0.bottom" timestamp="1615404953490">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1024.728@0.0.1366.728" timestamp="1614381780650" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1614804965961" />
-    <state width="1556" height="218" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1614887053312" />
-    <state width="1556" height="218" key="GridCell.Tab.0.center" timestamp="1614887053312">
+    <state width="1556" height="218" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1615404953490" />
+    <state width="1556" height="218" key="GridCell.Tab.0.center" timestamp="1615404953489">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1024.728@0.0.1366.728" timestamp="1614381780650" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1614804965960" />
-    <state width="1556" height="218" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1614887053312" />
-    <state width="1556" height="218" key="GridCell.Tab.0.left" timestamp="1614887053312">
+    <state width="1556" height="218" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1615404953489" />
+    <state width="1556" height="218" key="GridCell.Tab.0.left" timestamp="1615404953489">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1024.728@0.0.1366.728" timestamp="1614381780650" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1614804965959" />
-    <state width="1556" height="218" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1614887053312" />
-    <state width="1556" height="218" key="GridCell.Tab.0.right" timestamp="1614887053312">
+    <state width="1556" height="218" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1615404953489" />
+    <state width="1556" height="218" key="GridCell.Tab.0.right" timestamp="1615404953490">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1024.728@0.0.1366.728" timestamp="1614381780650" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1614804965960" />
-    <state width="1556" height="218" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1614887053312" />
+    <state width="1556" height="218" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1615404953490" />
     <state x="431" y="190" key="MultipleFileMergeDialog" timestamp="1614970374067">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -280,11 +290,11 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="86" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1614794970220" />
-    <state x="356" y="166" key="Vcs.Push.Dialog.v2" timestamp="1614970645610">
+    <state x="356" y="166" key="Vcs.Push.Dialog.v2" timestamp="1614973270793">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="320" y="174" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1614804935759" />
-    <state x="356" y="166" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1614970645610" />
+    <state x="356" y="166" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1614973270793" />
     <state x="499" y="142" key="chooseDestDirectoryDialog" timestamp="1614207312835">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

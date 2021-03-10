@@ -130,8 +130,8 @@ public class MainFragment extends Fragment {
 
         List<Site> list = new ArrayList<>();
         list.add(new Site("Artes", R.mipmap.logo_pmvc, "http://smed.pmvc.ba.gov.br/estudoremoto/conteudo.jsp?idSerie="+key+"&idDisciplina=1"));
-        list.add(new Site("Língua Portuguesa", R.mipmap.logo_pmvc, "http://smed.pmvc.ba.gov.br/estudoremoto/conteudo.jsp?idSerie="+key+"&idDisciplina=2"));
-        list.add(new Site("Matemática", R.mipmap.logo_pmvc, "http://smed.pmvc.ba.gov.br/estudoremoto/conteudo.jsp?idSerie="+key+"&idDisciplina=3"));
+        list.add(new Site("Língua Portuguesa", R.mipmap.logo_pmvc, "twitter.com"));
+        list.add(new Site("Login", R.mipmap.logo_pmvc, "http://smed.pmvc.ba.gov.br/estudoremoto/login-control/"));
         /*Site site = new Site(getString(R.string.aprendendo), R.mipmap.aprendendo_sempre_logo, "https://aprendendosempre.org/");
         Site site1 = new Site(getString(R.string.aprendizap), R.mipmap.aprendizap_logo, "https://www.aprendizap.com.br/");
         Site site2 = new Site(getString(R.string.arvoveredu), R.mipmap.arvore_de_livros, "https://app.arvoreeducacao.com.br/");
