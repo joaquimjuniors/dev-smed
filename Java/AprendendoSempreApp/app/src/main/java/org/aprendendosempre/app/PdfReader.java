@@ -1,18 +1,8 @@
 package org.aprendendosempre.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
 import android.app.Activity;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.OpenableColumns;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
@@ -20,14 +10,11 @@ import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.shockwave.pdfium.PdfDocument;
 
-import java.io.File;
 import java.util.List;
 
-import android.os.Bundle;
+public class PdfReader extends Activity implements OnPageChangeListener,OnLoadCompleteListener{
 
-public class Pdfreader extends Activity implements OnPageChangeListener,OnLoadCompleteListener{
-
-    private static final String TAG = Pdfreader.class.getSimpleName();
+    private static final String TAG = PdfReader.class.getSimpleName();
     public static final String SAMPLE_FILE = "android_tutorial.pdf";
     PDFView pdfView;
     Integer pageNumber = 0;
@@ -39,7 +26,7 @@ public class Pdfreader extends Activity implements OnPageChangeListener,OnLoadCo
         setContentView(R.layout.activity_pdfreader);
 
 
-        pdfView= (PDFView)findViewById(R.id.pdfView);
+        pdfView= findViewById(R.id.pdfView);
         displayFromAsset(SAMPLE_FILE);
     }
 

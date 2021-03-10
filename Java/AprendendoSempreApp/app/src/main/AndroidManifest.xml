@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Pdfreader"></activity>
+        <activity android:name=".PdfReader"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
