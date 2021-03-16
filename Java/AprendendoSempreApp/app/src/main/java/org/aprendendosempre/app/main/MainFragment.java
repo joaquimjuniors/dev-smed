@@ -81,7 +81,7 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 //startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://aprendendosempre.org/")));
                 Intent intent = new Intent(requireContext(), WebViewActivity.class);
-                intent.putExtra("Link", "https://aprendendosempre.org/estudos-sobre-educacao-durante-a-pandemia/");
+                intent.putExtra("Link", "https://aprendendosempre.org");
                 requireContext().startActivity(intent);
             }
         });

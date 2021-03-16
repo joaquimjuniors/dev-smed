@@ -51,17 +51,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_LONG).show();
         }
-/*
-        //temp
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-
-        isStoragePermissionGranted();
-
-        loadFragment(new MainFragment());
-
-        BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
-        navigationView.setOnNavigationItemSelectedListener(this);*/
     }
 
     public boolean isStoragePermissionGranted() {

@@ -19,6 +19,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
 import android.webkit.WebSettings;
@@ -72,8 +73,10 @@ public class WebViewActivity extends AppCompatActivity {
         try {
             super.onCreate(savedInstanceState);
 
+            getWindow().requestFeature(Window.FEATURE_PROGRESS);
             setContentView(R.layout.activity_web_view);
             myWebView = findViewById(R.id.webView);
+
 
             String link = getIntent().getExtras().getString("Link");
 
@@ -90,18 +93,26 @@ public class WebViewActivity extends AppCompatActivity {
             Locale.setDefault(new Locale("pt", "BR"));
             myWebView.loadUrl(link);
 
+            // solicitar a barra de progresso para a activity
+
             myWebView.setWebViewClient(new WebViewClient(){
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     progressBar.setVisibility(View.VISIBLE);
+                    //myWebView.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
+                    //progressBar.setVisibility(View.GONE);
+                    //myWebView.setVisibility(View.VISIBLE);
+                }
+
+                public void onPageCommitVisible(WebView view, String url) {
+                    super.onPageCommitVisible(view, url);
                     progressBar.setVisibility(View.GONE);
-                    myWebView.setVisibility(View.VISIBLE);
                 }
                 //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
                 List<String> whiteHosts = Arrays.asList("aprendendosempre.org","smed.pmvc.ba.gov.br");
@@ -125,6 +136,7 @@ public class WebViewActivity extends AppCompatActivity {
                                             String mimetype, long contentLength) {
                     String humanReadableFileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
 
+                    atvName = humanReadableFileName;
                     Uri downloadUri = Uri.parse(url);
                     DownloadManager.Request request = new DownloadManager.Request(downloadUri);
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
@@ -135,14 +147,17 @@ public class WebViewActivity extends AppCompatActivity {
                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                     request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, humanReadableFileName);
                     dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                    dm.enqueue(request);
-                    Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
 
-                    registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                    File sdcard = Environment.getExternalStorageDirectory();
+                    File dir = new File(sdcard.getAbsolutePath() + "/Download/" +humanReadableFileName);
+                    if(!dir.exists()) {
+                        dm.enqueue(request);
+                        Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
+                        registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                    }else{
+                        loadFile(atvName);
+                    }
 
-                    atvName = humanReadableFileName;
-                    //OpenPDF();
-                    //Test();
                 }
 
                 BroadcastReceiver onComplete=new BroadcastReceiver() {
@@ -177,7 +192,7 @@ public class WebViewActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= 23) {
                             if (checkPermission()) {
                                 File sdcard = Environment.getExternalStorageDirectory();
-                                File dir = new File(sdcard.getAbsolutePath() + "/Download/");
+                                File dir = new File(sdcard.getAbsolutePath() + "/Download/"+ atvName);
                                 if(dir.exists()) {
                                     File file = new File(dir, ""+atv);
                                     OpenPDF(file);
@@ -185,9 +200,6 @@ public class WebViewActivity extends AppCompatActivity {
                                 }
                             } else {
                                 requestPermission(); // Code for permission
-                                if(checkPermission()){
-                                    loadFile(atvName);
-                                }
                             }
                         } else {
                             File sdcard = Environment.getExternalStorageDirectory();
@@ -218,15 +230,6 @@ public class WebViewActivity extends AppCompatActivity {
                     }
                 }
 
-
-
-
-
-
-
-
-
-
             });
 
 //          registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
@@ -241,6 +244,27 @@ public class WebViewActivity extends AppCompatActivity {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.e("value", "Permission Granted, Now you can use local drive .");
+
+                    File sdcard = Environment.getExternalStorageDirectory();
+                    File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atvName);
+                    if(dir.exists()) {
+                        File file = new File(dir, ""+atvName);
+
+                        Intent pdfIntent = new Intent("com.adobe.reader");
+                        pdfIntent.setAction(Intent.ACTION_VIEW);
+                        pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
+                                WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", file);
+                        pdfIntent.setDataAndType(uri, "application/pdf");
+
+                        Intent intent = Intent.createChooser(pdfIntent, "Open File");
+                        try {
+                            startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                            Toast.makeText(WebViewActivity.this, "Error :" + e , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
                 } else {
                     Log.e("value", "Permission Denied, You cannot use local drive .");
                 }

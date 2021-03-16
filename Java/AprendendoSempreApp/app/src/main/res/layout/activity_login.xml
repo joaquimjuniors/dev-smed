@@ -15,9 +15,9 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/aprendendo_sempre"
+            android:layout_width="105dp"
+            android:layout_height="68dp"
+            android:src="@mipmap/educareconquista_logo"
             android:tint="@color/color3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
