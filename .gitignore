@@ -22,3 +22,18 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+/Java/AprendendoSempreApp/*.iml
+/Java/AprendendoSempreApp/.gradle
+/Java/AprendendoSempreApp/local.properties
+/Java/AprendendoSempreApp/.idea/caches
+/Java/AprendendoSempreApp/.idea/libraries
+/Java/AprendendoSempreApp/.idea/modules.xml
+/Java/AprendendoSempreApp/.idea/workspace.xml
+/Java/AprendendoSempreApp/.idea/navEditor.xml
+/Java/AprendendoSempreApp/.idea/assetWizardSettings.xml
+/Java/AprendendoSempreApp/.DS_Store
+/Java/AprendendoSempreApp/build
+/Java/AprendendoSempreApp/captures
+/Java/AprendendoSempreApp/.externalNativeBuild
+/Java/AprendendoSempreApp/.cxx
+/Java/AprendendoSempreApp/local.properties
