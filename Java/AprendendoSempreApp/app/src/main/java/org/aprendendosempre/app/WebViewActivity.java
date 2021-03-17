@@ -1,14 +1,15 @@
 package org.aprendendosempre.app;
 
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -25,10 +26,8 @@ import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,12 +37,9 @@ import androidx.core.content.FileProvider;
 import com.datami.smi.SdState;
 import com.google.common.net.InternetDomainName;
 
-import java.io.BufferedReader;
+import org.aprendendosempre.app.main.MainActivity;
+
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,20 +49,13 @@ import java.util.Locale;
 
 public class WebViewActivity extends AppCompatActivity {
 
-    String url = "";
-
-    private static final int WRITE_PERMISSION = 1001;
-
     private WebView myWebView;
     DownloadManager dm;
-    String uriString;
     Exception exception;
     ProgressBar progressBar;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     String atvName;
-    //Button read;
-    //TextView output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +83,6 @@ public class WebViewActivity extends AppCompatActivity {
             myWebView.loadUrl(link);
 
             // solicitar a barra de progresso para a activity
-
             myWebView.setWebViewClient(new WebViewClient(){
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -184,8 +172,6 @@ public class WebViewActivity extends AppCompatActivity {
                     }
                 }
 
-
-
                 public void loadFile(String atv){
                     String state = Environment.getExternalStorageState();
                     if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -207,8 +193,6 @@ public class WebViewActivity extends AppCompatActivity {
                             if(dir.exists()) {
                                 File file = new File(dir, "Atividade.pdf");
                                 OpenPDF(file);
-
-
                             }
                         }
                     }
@@ -222,6 +206,7 @@ public class WebViewActivity extends AppCompatActivity {
                         return false;
                     }
                 }
+
                 private void requestPermission() {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(WebViewActivity.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                         Toast.makeText(WebViewActivity.this, "Write External Storage permission allows us to read files. Please allow this permission in App Settings.", Toast.LENGTH_LONG).show();
@@ -238,6 +223,7 @@ public class WebViewActivity extends AppCompatActivity {
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -303,12 +289,34 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-        if(myWebView.canGoBack()){
+    public void onBackPressed() {
+        if(myWebView.canGoBack()) {
             myWebView.goBack();
-        }else{
-            finish();
+        } else {
+            confirmDialog();
         }
+    }
+
+    private void confirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Tem certeza que quer sair")
+                .setTitle("Alerta!")
+
+                .setCancelable(false)
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        WebViewActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

@@ -8,10 +8,6 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.datami.smi.SmiSdk;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import org.aprendendosempre.app.main.MainActivity;
-import org.aprendendosempre.app.main.MainFragment;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -26,6 +22,27 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, 1000);
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setMessage("Tem certeza que quer sair")
+//                .setCancelable(false)
+//                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        SplashScreenActivity.this.finish();
+//                    }
+//                })
+//                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//        AlertDialog alert = builder.create();
+//        alert.show();
+//    }
 
     private void abrirMain() { //versao do app onde será utilizado api request em vez do login pelo site
         setContentView(R.layout.activity_splash_screen);
@@ -60,6 +77,4 @@ public class SplashScreenActivity extends AppCompatActivity {
         SplashScreenActivity.this.startActivity(intent);
         finish();
     }
-
-
 }

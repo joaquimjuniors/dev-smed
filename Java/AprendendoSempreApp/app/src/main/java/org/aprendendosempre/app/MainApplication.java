@@ -8,10 +8,14 @@ import android.widget.Toast;
 import com.datami.smi.*;
 
 public class MainApplication extends Application implements SdStateChangeListener {
+
     private Toast toast;
     private Context context;
     private int duration;
     SdState tempState;
+
+    private static final String TAG = WebViewActivity.class.getName();
+    protected static SdState sdState;
 
     @Override
     public void onCreate() {
@@ -20,8 +24,6 @@ public class MainApplication extends Application implements SdStateChangeListene
         duration = Toast.LENGTH_LONG;
     }
 
-    private static final String TAG = WebViewActivity.class.getName();
-    public static SdState sdState;
     @Override
     public void onChange(SmiResult currentSmiResult) {
         sdState = currentSmiResult.getSdState();
@@ -41,4 +43,6 @@ public class MainApplication extends Application implements SdStateChangeListene
         toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+
 }
