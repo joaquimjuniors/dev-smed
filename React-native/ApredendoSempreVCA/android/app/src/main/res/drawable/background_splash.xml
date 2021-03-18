@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <gradient
+                android:angle="90"
+                android:endColor="@color/primary"
+                android:startColor="@color/secondary"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <item
+        android:width="140dp"
+        android:height="130dp"
+        android:drawable="@drawable/logo"
+        android:gravity="center"
+        android:filter="true"
+        android:dither="true"
+        android:antialias="true"
+    />
+
+</layer-list>
