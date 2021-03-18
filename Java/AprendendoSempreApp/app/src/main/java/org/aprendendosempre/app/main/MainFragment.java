@@ -32,7 +32,6 @@ import org.aprendendosempre.app.WebViewActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MainFragment extends Fragment {
 
     //class controladora do main_fragment, que por sua vez controla os xml internos Content_main e content_botton_sheet
@@ -63,8 +62,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    public static int convertDpToPixels(float dp, Activity context){
-
+    public static int convertDpToPixels(float dp, Activity context) {
         DisplayMetrics metrics = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         float density = metrics.density;
@@ -72,7 +70,7 @@ public class MainFragment extends Fragment {
     }
 
 
-    private void setupView(View view){
+    private void setupView(View view) {
         TextView textView = view.findViewById(R.id.bottom_sheet_text_dice);
 
         Button btn_home = view.findViewById(R.id.btn_home);
@@ -89,7 +87,7 @@ public class MainFragment extends Fragment {
         textView.setText(HtmlCompat.fromHtml(getString(R.string.home_you), HtmlCompat.FROM_HTML_MODE_LEGACY));
     }
 
-    private void setRecyclerView(View view){
+    private void setRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_sites);
 
         SiteAdapter adapter = new SiteAdapter(setupList(), requireContext());
