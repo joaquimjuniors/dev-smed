@@ -11,11 +11,13 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,8 +42,11 @@ import com.google.common.net.InternetDomainName;
 import org.aprendendosempre.app.main.MainActivity;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +71,6 @@ public class WebViewActivity extends AppCompatActivity {
             setContentView(R.layout.activity_web_view);
             progressBar = findViewById(R.id.progress);
             myWebView = findViewById(R.id.webView);
-
 
             String link = getIntent().getExtras().getString("Link");
 
@@ -221,7 +225,6 @@ public class WebViewActivity extends AppCompatActivity {
                         ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
                     }
                 }
-
             });
 
             myWebView.loadUrl(link);
@@ -232,12 +235,44 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress address = InetAddress.getByName("www.google.com");
+            return !address.equals("");
+        } catch (UnknownHostException e) {
+            Log.d("Erro", "Não está conetado a internet");
+        }
+        return false;
+    }
+
+    // ICMP
+    public boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.e("value", "Permission Granted, Now you can use local drive .");
+                    Log.e("sucess", "Permission Granted, Now you can use local drive .");
 
                     File sdcard = Environment.getExternalStorageDirectory();
                     File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atvName);
@@ -301,29 +336,32 @@ public class WebViewActivity extends AppCompatActivity {
         if(myWebView.canGoBack()) {
             myWebView.goBack();
         } else {
-            confirmDialog();
+            confirmDialog(getApplicationContext());
         }
     }
 
-    private void confirmDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Tem certeza que quer sair")
-                .setTitle("Alerta!")
+    private void confirmDialog(Context context) {
+        final AlertDialog alert = new AlertDialog.Builder(
+                new ContextThemeWrapper(context, android.R.style.Theme_Dialog)).create();
+        alert.setTitle("Alerta");
+        alert.setMessage("Tem certeza que quer sair?");
+        alert.setCancelable(false);
+        alert.setCanceledOnTouchOutside(false);
 
-                .setCancelable(false)
-                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        WebViewActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
+        alert.setButton(DialogInterface.BUTTON_POSITIVE, "Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alert.dismiss();
+                finish();
+            }
+        });
+        alert.setButton(DialogInterface.BUTTON_NEGATIVE, "Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alert.dismiss();
+            }
+        });
+
         alert.show();
     }
 
@@ -379,7 +417,6 @@ public class WebViewActivity extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-
             try {
                  if(url.startsWith("javascript"))
                      return false;
@@ -462,7 +499,6 @@ public class WebViewActivity extends AppCompatActivity {
             }
             return true;
         }
-
     }
 }
 
