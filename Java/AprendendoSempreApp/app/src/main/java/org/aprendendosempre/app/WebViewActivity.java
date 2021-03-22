@@ -64,15 +64,12 @@ public class WebViewActivity extends AppCompatActivity {
 
             getWindow().requestFeature(Window.FEATURE_PROGRESS);
             setContentView(R.layout.activity_web_view);
+            progressBar = findViewById(R.id.progress);
             myWebView = findViewById(R.id.webView);
 
 
             String link = getIntent().getExtras().getString("Link");
 
-            progressBar = findViewById(R.id.progress);
-            progressBar.setVisibility(View.VISIBLE);
-
-            myWebView.setWebViewClient(new MyWebViewClient());
             WebSettings webSettings = myWebView.getSettings();
             webSettings.setJavaScriptEnabled(true);
             webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -80,13 +77,14 @@ public class WebViewActivity extends AppCompatActivity {
             webSettings.setAllowFileAccess(true);
             webSettings.setAllowFileAccessFromFileURLs(true);
             Locale.setDefault(new Locale("pt", "BR"));
-            myWebView.loadUrl(link);
+            webSettings.setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-            // solicitar a barra de progresso para a activity
+            //Configuração da webview
             myWebView.setWebViewClient(new WebViewClient(){
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
+                    Log.e("aa","started");
                     progressBar.setVisibility(View.VISIBLE);
                     //myWebView.setVisibility(View.GONE);
                 }
@@ -98,9 +96,11 @@ public class WebViewActivity extends AppCompatActivity {
                     //myWebView.setVisibility(View.VISIBLE);
                 }
 
+                @Override
                 public void onPageCommitVisible(WebView view, String url) {
                     super.onPageCommitVisible(view, url);
                     progressBar.setVisibility(View.GONE);
+
                 }
                 //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
                 List<String> whiteHosts = Arrays.asList("aprendendosempre.org","smed.pmvc.ba.gov.br");
@@ -111,13 +111,20 @@ public class WebViewActivity extends AppCompatActivity {
                     if(whiteHosts.contains(host)) {
                         return false;
                     }
-
                     view.loadUrl("smed.pmvc.ba.gov.br/estudoremoto/login-control");
                     return true;
                 }
+                @Override
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUr){
+                    //view.stopLoading();
+                    progressBar.setVisibility(View.GONE);
+                    Toast loadingErrorToast = Toast.makeText(WebViewActivity.this,"Sem conexão com a internet!",Toast.LENGTH_SHORT);
+                    loadingErrorToast.show();
+                }
+
             });
 
-            // funcao que habilita o download via download manager pelo webview
+            // Listener para downloads feitos dentro da webview
             myWebView.setDownloadListener(new DownloadListener() {
 
                 public void onDownloadStart(String url, String userAgent, String contentDisposition,
@@ -217,6 +224,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             });
 
+            myWebView.loadUrl(link);
 //          registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         } catch (Exception e) {
             exception = e;
@@ -332,6 +340,10 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private class MyWebViewClient extends WebViewClient {
+
+        public MyWebViewClient (){
+            progressBar.setVisibility(View.VISIBLE);
+        }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
