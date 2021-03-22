@@ -27,9 +27,9 @@ const GetStarted = ({navigation}) => {
           <Image source={getStarted} style={styles.logo} />
         </View>
         <View style={styles.description}>
-          <Text style={styles.title}>Educar É Conquista</Text>
+          <Text style={styles.title}>Educar é Conquista</Text>
           <Text style={styles.subTitle}>
-          Seja bem vindo, conheça nosso aplicativo de ensino que disponibilizamos para vocês!
+          Conheça nosso aplicativo de ensino que disponibilizamos para vocês!
           </Text>
         </View>
         <View style={styles.button}>
@@ -71,13 +71,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
+    marginTop: -38,
     fontWeight: 'bold',
     color: '#eee',
   },
   subTitle: {
-    fontSize: 22,
-    marginTop: 40,
+    fontSize: 19,
+    marginTop: 100,
     textAlign: 'center',
     color: '#eee',
   },
