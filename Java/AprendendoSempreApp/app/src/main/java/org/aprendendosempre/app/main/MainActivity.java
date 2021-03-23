@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             navigationView.setOnNavigationItemSelectedListener(this);
 
         } catch (Exception e) {
-
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_LONG).show();
         }
     }

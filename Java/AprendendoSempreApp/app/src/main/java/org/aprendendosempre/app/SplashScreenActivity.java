@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.datami.smi.SmiSdk;
 
+import org.aprendendosempre.app.main.DetectConnection;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
