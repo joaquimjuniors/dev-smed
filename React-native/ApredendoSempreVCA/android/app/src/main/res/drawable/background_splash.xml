@@ -13,8 +13,8 @@
     </item>
 
     <item
-        android:width="140dp"
-        android:height="130dp"
+        android:width="100dp"
+        android:height="70dp"
         android:drawable="@drawable/logo"
         android:gravity="center"
         android:filter="true"
