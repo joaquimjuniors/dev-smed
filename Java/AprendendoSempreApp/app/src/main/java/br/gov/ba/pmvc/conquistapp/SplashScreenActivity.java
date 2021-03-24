@@ -17,6 +17,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Handler handle = new Handler();
+        setContentView(R.layout.activity_splash_screen);
+        
         handle.postDelayed(new Runnable() {
             @Override public void run() {
                 //abrirMain();
@@ -26,8 +28,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void abrirMain() { //versao do app onde será utilizado api request em vez do login pelo site
-        setContentView(R.layout.activity_splash_screen);
-
         Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -45,16 +45,14 @@ public class SplashScreenActivity extends AppCompatActivity {
 //          SmiSdk.initSponsoredData(mySdkKey, this, myUserId, sdIconId, false, exclusionDomains);
             SmiSdk.initSponsoredData(mySdkKey, this, myUserId, sdIconId, false);
 
-            setContentView(R.layout.activity_splash_screen);
+            //setContentView(R.layout.activity_splash_screen);
 
         } catch (Exception e) {
-
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_LONG).show();
         }
 
 
         Intent intent = new Intent(SplashScreenActivity.this, WebViewActivity.class);
-//        intent.putExtra("Link", "http://www.google.com/");
         intent.putExtra("Link", "http://smed.pmvc.ba.gov.br/estudoremoto/login-control/");
         SplashScreenActivity.this.startActivity(intent);
         finish();
