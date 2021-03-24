@@ -1,10 +1,9 @@
-package org.aprendendosempre.app.main;
+package br.gov.ba.pmvc.conquistapp.main;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -25,9 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import org.aprendendosempre.app.LoginActivity;
-import org.aprendendosempre.app.R;
-import org.aprendendosempre.app.WebViewActivity;
+import br.gov.ba.pmvc.conquistapp.R;
+import br.gov.ba.pmvc.conquistapp.WebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;

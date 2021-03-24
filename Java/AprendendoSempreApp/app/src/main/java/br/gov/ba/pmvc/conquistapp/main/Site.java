@@ -1,4 +1,4 @@
-package org.aprendendosempre.app.main;
+package br.gov.ba.pmvc.conquistapp.main;
 
 public class Site {
 

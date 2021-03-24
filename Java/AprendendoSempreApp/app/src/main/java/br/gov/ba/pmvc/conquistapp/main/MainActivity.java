@@ -1,15 +1,12 @@
-package org.aprendendosempre.app.main;
+package br.gov.ba.pmvc.conquistapp.main;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -21,11 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.datami.smi.SmiSdk;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.aprendendosempre.app.AboutFragment;
-import org.aprendendosempre.app.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import br.gov.ba.pmvc.conquistapp.AboutFragment;
+import br.gov.ba.pmvc.conquistapp.R;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {

@@ -1,4 +1,4 @@
-package org.aprendendosempre.app;
+package br.gov.ba.pmvc.conquistapp;
 
 import org.junit.Test;
 

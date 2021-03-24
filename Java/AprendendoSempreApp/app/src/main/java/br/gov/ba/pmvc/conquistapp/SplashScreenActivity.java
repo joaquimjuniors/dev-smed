@@ -1,4 +1,4 @@
-package org.aprendendosempre.app;
+package br.gov.ba.pmvc.conquistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.datami.smi.SmiSdk;
+
+import br.gov.ba.pmvc.conquistapp.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

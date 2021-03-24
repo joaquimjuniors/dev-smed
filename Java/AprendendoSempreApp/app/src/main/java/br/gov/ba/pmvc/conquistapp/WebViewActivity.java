@@ -1,8 +1,7 @@
-package org.aprendendosempre.app;
+package br.gov.ba.pmvc.conquistapp;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -41,6 +40,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.datami.smi.SdState;
 import com.google.common.net.InternetDomainName;
+
+import br.gov.ba.pmvc.conquistapp.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,6 +94,7 @@ public class WebViewActivity extends AppCompatActivity {
                 webSettings.setBuiltInZoomControls(true);
                 webSettings.setDisplayZoomControls(false);
                 webSettings.setAllowFileAccessFromFileURLs(true);
+                webSettings.setCacheMode( WebSettings.LOAD_CACHE_ELSE_NETWORK );
                 Locale.setDefault(new Locale("pt", "BR"));
                 myWebView.loadUrl(link);
                 swipe.setRefreshing(true);
@@ -130,7 +132,10 @@ public class WebViewActivity extends AppCompatActivity {
 
                 @Override
                 public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                    myWebView.loadUrl("file:///android_asset/error.html");
+                    myWebView.stopLoading();
+                    Toast toast = Toast.makeText(WebViewActivity.this,"Sem conexão com a internet!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    //myWebView.loadUrl("file:///android_asset/error.html");
                 }
 
                 @Override

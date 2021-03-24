@@ -1,4 +1,4 @@
-package org.aprendendosempre.app;
+package br.gov.ba.pmvc.conquistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import org.aprendendosempre.app.main.MainActivity;
-import org.aprendendosempre.app.main.MainFragment;
+import br.gov.ba.pmvc.conquistapp.R;
+
+import br.gov.ba.pmvc.conquistapp.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

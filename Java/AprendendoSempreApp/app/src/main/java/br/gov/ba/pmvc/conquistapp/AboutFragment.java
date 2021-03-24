@@ -1,4 +1,4 @@
-package org.aprendendosempre.app;
+package br.gov.ba.pmvc.conquistapp;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
+import br.gov.ba.pmvc.conquistapp.R;
 
 public class AboutFragment extends Fragment {
 

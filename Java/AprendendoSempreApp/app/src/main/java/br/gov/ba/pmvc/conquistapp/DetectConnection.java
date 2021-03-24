@@ -1,4 +1,4 @@
-package org.aprendendosempre.app;
+package br.gov.ba.pmvc.conquistapp;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

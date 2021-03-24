@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:theme="@style/SplashTheme"
     android:background="@drawable/splah_gradient"
-    tools:context=".SplashScreenActivity">
+    tools:context="br.gov.ba.pmvc.conquistapp.SplashScreenActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
