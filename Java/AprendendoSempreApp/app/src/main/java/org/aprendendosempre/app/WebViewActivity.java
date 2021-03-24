@@ -2,6 +2,7 @@ package org.aprendendosempre.app;
 
 import android.app.AlertDialog;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -35,11 +37,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.datami.smi.SdState;
 import com.google.common.net.InternetDomainName;
-
-import org.aprendendosempre.app.main.MainActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,9 +56,12 @@ import java.util.Locale;
 public class WebViewActivity extends AppCompatActivity {
 
     private WebView myWebView;
+
     DownloadManager dm;
     Exception exception;
+    SwipeRefreshLayout swipe;
     ProgressBar progressBar;
+//    ProgressDialog progressDialog;
 
     private static final int PERMISSION_REQUEST_CODE = 100;
     String atvName;
@@ -73,39 +77,68 @@ public class WebViewActivity extends AppCompatActivity {
 
             String link = getIntent().getExtras().getString("Link");
 
-            progressBar = findViewById(R.id.progress);
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar = findViewById(R.id.progress_bar);
+            progressBar.setMax(100);
+            progressBar.setProgress(1);
 
-            myWebView.setWebViewClient(new MyWebViewClient());
-            WebSettings webSettings = myWebView.getSettings();
-            webSettings.setJavaScriptEnabled(true);
-            webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-            webSettings.setDomStorageEnabled(true);
-            webSettings.setAllowFileAccess(true);
-            webSettings.setAllowFileAccessFromFileURLs(true);
-            Locale.setDefault(new Locale("pt", "BR"));
-            myWebView.loadUrl(link);
+            swipe = findViewById(R.id.swipe);
+
+            if (DetectConnection.haveNetworkConnection(this)) {
+//                Toast.makeText(getApplicationContext(), "Está conectado a internet", Toast.LENGTH_SHORT).show();
+                WebSettings webSettings = myWebView.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+                webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+                webSettings.setDomStorageEnabled(true);
+                webSettings.setAllowFileAccess(true);
+                webSettings.setBuiltInZoomControls(true);
+                webSettings.setDisplayZoomControls(false);
+                webSettings.setAllowFileAccessFromFileURLs(true);
+                Locale.setDefault(new Locale("pt", "BR"));
+                myWebView.loadUrl(link);
+                swipe.setRefreshing(true);
+            } else {
+                Toast.makeText(getApplicationContext(), "Sem internet", Toast.LENGTH_SHORT).show();
+            }
+
+            swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    myWebView.reload();
+                }
+            });
+
+            myWebView.setWebChromeClient(new WebChromeClient() {
+                public void onProgressChanged(WebView view, int progress) {
+                    progressBar.setProgress(progress);
+                    if (progress == 100) {
+                        progressBar.setVisibility(View.GONE);
+
+                    } else {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
 
             // solicitar a barra de progresso para a activity
-            myWebView.setWebViewClient(new WebViewClient(){
+            myWebView.setWebViewClient(new WebViewClient() {
+
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     progressBar.setVisibility(View.VISIBLE);
-                    //myWebView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                    myWebView.loadUrl("file:///android_asset/error.html");
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
-                    super.onPageFinished(view, url);
-                    //progressBar.setVisibility(View.GONE);
-                    //myWebView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    swipe.setRefreshing(false);
                 }
 
-                public void onPageCommitVisible(WebView view, String url) {
-                    super.onPageCommitVisible(view, url);
-                    progressBar.setVisibility(View.GONE);
-                }
                 //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
                 List<String> whiteHosts = Arrays.asList("aprendendosempre.org","smed.pmvc.ba.gov.br");
 
@@ -154,7 +187,6 @@ public class WebViewActivity extends AppCompatActivity {
 
                 BroadcastReceiver onComplete=new BroadcastReceiver() {
                     public void onReceive(Context ctxt, Intent intent) {
-
                         loadFile(atvName);
                     }
                 };
@@ -374,7 +406,7 @@ public class WebViewActivity extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-            progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -397,7 +429,7 @@ public class WebViewActivity extends AppCompatActivity {
                     "}" +
                     "}" +
                     "})()");
-            progressBar.setVisibility(View.INVISIBLE);
+//            progressBar.setVisibility(View.INVISIBLE);
             myWebView.setVisibility(View.VISIBLE);
         }
 

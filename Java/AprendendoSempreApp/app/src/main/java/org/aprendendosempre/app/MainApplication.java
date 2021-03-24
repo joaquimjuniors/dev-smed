@@ -21,7 +21,7 @@ public class MainApplication extends Application implements SdStateChangeListene
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
-        duration = Toast.LENGTH_LONG;
+        duration = Toast.LENGTH_SHORT;
     }
 
     @Override

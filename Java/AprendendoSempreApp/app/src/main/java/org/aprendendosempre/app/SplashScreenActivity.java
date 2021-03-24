@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import com.datami.smi.SmiSdk;
 
-import org.aprendendosempre.app.main.DetectConnection;
-
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
@@ -25,27 +23,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         }, 1000);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setMessage("Tem certeza que quer sair")
-//                .setCancelable(false)
-//                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        SplashScreenActivity.this.finish();
-//                    }
-//                })
-//                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
-
     private void abrirMain() { //versao do app onde será utilizado api request em vez do login pelo site
         setContentView(R.layout.activity_splash_screen);
 
@@ -54,7 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         finish();
     }
 
-    private void abrirWeb(){ //versao onde o app apenas executa a webview e tudo e' organizado pela plataforma online
+    private void abrirWeb(){ //versao onde o app apenas executa a webview e tudo eh organizado pela plataforma online
         try {
             String mySdkKey = getString(R.string.SDK_KEY);
             String myUserId = "";
@@ -75,6 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         Intent intent = new Intent(SplashScreenActivity.this, WebViewActivity.class);
+//        intent.putExtra("Link", "http://www.google.com/");
         intent.putExtra("Link", "http://smed.pmvc.ba.gov.br/estudoremoto/login-control/");
         SplashScreenActivity.this.startActivity(intent);
         finish();
