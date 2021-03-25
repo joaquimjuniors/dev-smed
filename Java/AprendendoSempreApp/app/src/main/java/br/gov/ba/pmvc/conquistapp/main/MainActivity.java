@@ -106,10 +106,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 fragment = new MainFragment();
                 break;
 
-            case R.id.page_about:{
+            case R.id.page_about:
                 fragment = new AboutFragment();
                 break;
-            }
         }
 
         return loadFragment(fragment);
