@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ConquistApp</string>
     <string name="texto_splash">Acesso via Wifi: todos os sites liberados.\nAcesso Patrocinado: apenas google for education e google forms.</string>
-    <string name="title_activity_splash_screen">Aprendendo Sempre</string>
+    <string name="title_activity_splash_screen">ConquistApp</string>
     <string name="btn_continuar">Continuar</string>
 
 
