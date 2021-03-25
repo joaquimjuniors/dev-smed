@@ -206,7 +206,7 @@ public class WebViewActivity extends AppCompatActivity {
 
                     public void loadFile(String atividadeNome) {
                         if (Build.VERSION.SDK_INT >= 23) {
-                            Log.e("v1", "versao maior que 23");
+                            Log.e("SDK >= 23", "versao maior que 23");
                             if (checkPermission()) {
                                 File sdcard = Environment.getExternalStorageDirectory();
                                 File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atividadeNome);
@@ -219,7 +219,7 @@ public class WebViewActivity extends AppCompatActivity {
                             }
                         } else {
                             //por enquando ele esta abrindo, mas caso for fazer algo diferente na webview para celulares antigos, e' aqui
-                            Log.e("v1", "versao menor que 23");
+                            Log.e("SDK < 23", "versao menor que 23");
                             if (checkPermission()) {
                                 File sdcard = Environment.getExternalStorageDirectory();
                                 File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atividadeNome);
@@ -265,7 +265,7 @@ public class WebViewActivity extends AppCompatActivity {
 
                     private void requestPermission() {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(WebViewActivity.this,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
                             Toast.makeText(WebViewActivity.this,
                                     "Write External Storage permission allows us to read files.", Toast.LENGTH_LONG).show();
                             Log.e("Request permission", "Ja tem permissao");
