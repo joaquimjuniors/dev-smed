@@ -1,6 +1,7 @@
 package br.gov.ba.pmvc.conquistapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
@@ -12,17 +13,20 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
@@ -30,9 +34,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -57,15 +63,17 @@ public class WebViewActivity extends AppCompatActivity {
 
     private WebView myWebView;
 
-    DownloadManager dm;
-    Exception exception;
-    SwipeRefreshLayout swipe;
-    ProgressBar progressBar;
-//    ProgressDialog progressDialog;
+    private DownloadManager dm;
+    private Exception exception;
+    private SwipeRefreshLayout swipe;
+    private ProgressBar progressBar;
+    private VideoEnableWebView videoEnableWebView;
+    private VideoEnableWebChromeClient webChromeClient;
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     String atvName;
 
+    @SuppressLint("SetJavaScriptEnable")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -83,15 +91,12 @@ public class WebViewActivity extends AppCompatActivity {
 
             swipe = findViewById(R.id.swipe);
 
-//            ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-//            }, PERMISSION_REQUEST_CODE);
 
             if (DetectConnection.haveNetworkConnection(this)) {
 //                Toast.makeText(getApplicationContext(), "Está conectado a internet", Toast.LENGTH_SHORT).show();
                 WebSettings webSettings = myWebView.getSettings();
                 webSettings.setJavaScriptEnabled(true);
-                webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+//                webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
                 webSettings.setDomStorageEnabled(true);
                 webSettings.setAllowFileAccess(true);
                 webSettings.setBuiltInZoomControls(true);
@@ -110,17 +115,19 @@ public class WebViewActivity extends AppCompatActivity {
                 });
 
                 //listener para receber o progresso de carregamento da pagina e atualizar a barra de loading
-                myWebView.setWebChromeClient(new WebChromeClient() {
-                    public void onProgressChanged(WebView view, int progress) {
-                        progressBar.setProgress(progress);
-                        if (progress == 100) {
-                            progressBar.setVisibility(View.GONE);
+//                myWebView.setWebChromeClient(new WebChromeClient() {
+//                    public void onProgressChanged(WebView view, int progress) {
+//                        progressBar.setProgress(progress);
+//                        if (progress == 100) {
+//                            progressBar.setVisibility(View.GONE);
+//
+//                        } else {
+//                            progressBar.setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//                });
 
-                        } else {
-                            progressBar.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
+                myWebView.setWebChromeClient(new MyChrome());
 
                 // solicitar a barra de progresso para a activity
                 myWebView.setWebViewClient(new WebViewClient() {
@@ -176,8 +183,7 @@ public class WebViewActivity extends AppCompatActivity {
                         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, atvName);
 
                         dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-//                        request.setMimeType("application/pdf");
-
+                        request.setMimeType("application/pdf");
 //
 //                        if (checkPermission()) {
 //                            Log.e("Certo", "Tudo ok");
@@ -285,12 +291,75 @@ public class WebViewActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "Sem internet", Toast.LENGTH_SHORT).show();
             }
-
-
         } catch (Exception e) {
             exception = e;
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private class MyChrome extends WebChromeClient {
+
+        private View mCustomView;
+        private WebChromeClient.CustomViewCallback mCustomViewCallback;
+        protected FrameLayout mFullscreenContainer;
+        private int mOriginalOrientation;
+        private int mOriginalSystemUiVisibility;
+
+        MyChrome() {}
+
+        public Bitmap getDefaultVideoPoster() {
+            if (mCustomView == null) {
+                return null;
+            }
+            return BitmapFactory.decodeResource(getApplicationContext().getResources(), 2130837573);
+        }
+
+        @Override
+        public void onProgressChanged(WebView view, int progress) {
+            progressBar.setProgress(progress);
+                if (progress == 100) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+        }
+
+        public void onHideCustomView()
+        {
+            ((FrameLayout)getWindow().getDecorView()).removeView(this.mCustomView);
+            this.mCustomView = null;
+            getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
+            setRequestedOrientation(this.mOriginalOrientation);
+            this.mCustomViewCallback.onCustomViewHidden();
+            this.mCustomViewCallback = null;
+        }
+
+        public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback)
+        {
+            if (this.mCustomView != null)
+            {
+                onHideCustomView();
+                return;
+            }
+            this.mCustomView = paramView;
+            this.mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
+            this.mOriginalOrientation = getRequestedOrientation();
+            this.mCustomViewCallback = paramCustomViewCallback;
+            ((FrameLayout)getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
+            getWindow().getDecorView().setSystemUiVisibility(3846 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        myWebView.saveState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        myWebView.restoreState(savedInstanceState);
     }
 
     @Override
@@ -327,38 +396,6 @@ public class WebViewActivity extends AppCompatActivity {
                 }
                 break;
         }
-    }
-
-    public boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
-    }
-
-    public boolean isInternetAvailable() {
-        try {
-            InetAddress address = InetAddress.getByName("www.google.com");
-            return !address.equals("");
-        } catch (UnknownHostException e) {
-            Log.d("Erro", "Não está conetado a internet");
-        }
-        return false;
-    }
-
-    // ICMP
-    public boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return false;
     }
 
     @Override
@@ -557,5 +594,7 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 }
+
+
 
 
