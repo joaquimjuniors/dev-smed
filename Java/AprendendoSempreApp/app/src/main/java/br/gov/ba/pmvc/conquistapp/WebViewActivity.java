@@ -62,13 +62,9 @@ import java.util.Locale;
 public class WebViewActivity extends AppCompatActivity {
 
     private WebView myWebView;
-
-    private DownloadManager dm;
     private Exception exception;
     private SwipeRefreshLayout swipe;
     private ProgressBar progressBar;
-    private VideoEnableWebView videoEnableWebView;
-    private VideoEnableWebChromeClient webChromeClient;
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     String atvName;
@@ -78,18 +74,18 @@ public class WebViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         try {
             super.onCreate(savedInstanceState);
-
             getWindow().requestFeature(Window.FEATURE_PROGRESS);
             setContentView(R.layout.activity_web_view);
-            myWebView = findViewById(R.id.webView);
 
             String link = getIntent().getExtras().getString("Link");
+
+            myWebView = findViewById(R.id.webView);
+            swipe = findViewById(R.id.swipe);
 
             progressBar = findViewById(R.id.progress_bar);
             progressBar.setMax(100);
             progressBar.setProgress(1);
 
-            swipe = findViewById(R.id.swipe);
 
 
             if (DetectConnection.haveNetworkConnection(this)) {
@@ -104,6 +100,11 @@ public class WebViewActivity extends AppCompatActivity {
                 webSettings.setAllowFileAccessFromFileURLs(true);
                 webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                 Locale.setDefault(new Locale("pt", "BR"));
+
+                myWebView.setWebChromeClient(new MyChromeClient(WebViewActivity.this,progressBar,WebViewActivity.this));
+                myWebView.setWebViewClient(new MyWebViewClient(WebViewActivity.this,progressBar,swipe));
+                myWebView.setDownloadListener(new MyDownloadListener(WebViewActivity.this,WebViewActivity.this,atvName));
+
                 swipe.setRefreshing(true);
 
                 //listener para atualizar a pagina quando deslizar a tela para baixo
@@ -114,179 +115,6 @@ public class WebViewActivity extends AppCompatActivity {
                     }
                 });
 
-                //listener para receber o progresso de carregamento da pagina e atualizar a barra de loading
-//                myWebView.setWebChromeClient(new WebChromeClient() {
-//                    public void onProgressChanged(WebView view, int progress) {
-//                        progressBar.setProgress(progress);
-//                        if (progress == 100) {
-//                            progressBar.setVisibility(View.GONE);
-//
-//                        } else {
-//                            progressBar.setVisibility(View.VISIBLE);
-//                        }
-//                    }
-//                });
-
-                myWebView.setWebChromeClient(new MyChrome());
-
-                // solicitar a barra de progresso para a activity
-                myWebView.setWebViewClient(new WebViewClient() {
-
-                    @Override
-                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                        super.onPageStarted(view, url, favicon);
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                        myWebView.stopLoading();
-                        Toast toast = Toast.makeText(WebViewActivity.this, "Sem conexão com a internet!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        //myWebView.loadUrl("file:///android_asset/error.html");
-                    }
-
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        progressBar.setVisibility(View.GONE);
-                        swipe.setRefreshing(false);
-                    }
-
-                    //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
-                    List<String> whiteHosts = Arrays.asList("aprendendosempre.org", "smed.pmvc.ba.gov.br");
-
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        String host = Uri.parse(url).getHost();
-                        if (whiteHosts.contains(host)) {
-                            return false;
-                        }
-
-                        view.loadUrl("smed.pmvc.ba.gov.br/estudoremoto/login-control");
-                        return true;
-                    }
-                });
-
-                // funcao que habilita o download via download manager pelo webview
-                myWebView.setDownloadListener(new DownloadListener() {
-                    public void onDownloadStart(String url, String userAgent, String contentDisposition,
-                                                String mimetype, long contentLength) {
-                        atvName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-
-                        Uri downloadUri = Uri.parse(url);
-                        DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
-                        request.setAllowedOverMetered(true);
-                        request.setAllowedOverRoaming(true);
-                        request.allowScanningByMediaScanner();
-                        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-                        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, atvName);
-
-                        dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                        request.setMimeType("application/pdf");
-//
-//                        if (checkPermission()) {
-//                            Log.e("Certo", "Tudo ok");
-//                        } else {
-//                            Log.e("Primeiro log", "Nao tem permissao ainda");
-//                            requestPermission();
-//                        }
-
-                        File sdcard = Environment.getExternalStorageDirectory();
-                        File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atvName);
-
-                        if (!dir.exists()) {
-                            dm.enqueue(request);
-                            Toast.makeText(WebViewActivity.this, "Download iniciado", Toast.LENGTH_SHORT).show();
-                            registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-                        } else {
-                            loadFile(atvName);
-                        }
-                    }
-
-                    BroadcastReceiver onComplete = new BroadcastReceiver() {
-                        public void onReceive(Context ctxt, Intent intent) {
-                            loadFile(atvName);
-                        }
-                    };
-
-                    public void loadFile(String atividadeNome) {
-                        if (Build.VERSION.SDK_INT >= 23) {
-                            Log.e("SDK >= 23", "versao maior que 23");
-                            if (checkPermission()) {
-                                File sdcard = Environment.getExternalStorageDirectory();
-                                File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atividadeNome);
-                                if (dir.exists()) {
-                                    Log.e("abrir", "vai tentar abrir");
-                                    openPDF(dir);
-                                }
-                            } else {
-                                requestPermission(); // Code for permission
-                            }
-                        } else {
-                            //por enquando ele esta abrindo, mas caso for fazer algo diferente na webview para celulares antigos, e' aqui
-                            Log.e("SDK < 23", "versao menor que 23");
-                            if (checkPermission()) {
-                                File sdcard = Environment.getExternalStorageDirectory();
-                                File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atividadeNome);
-                                if (dir.exists()) {
-                                    openPDF(dir);
-                                }
-                            } else {
-                                requestPermission(); // Code for permission
-                            }
-                        }
-                    }
-
-                    // funcao para abrir o pdf
-                    public void openPDF(File atv) {
-                        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-                        pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//                        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
-                                WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", atv);
-                        pdfIntent.setDataAndType(uri, "application/pdf");
-
-                        Intent chooser = Intent.createChooser(pdfIntent, "Abrir arquivo com:");
-//                        chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            startActivity(chooser); //se for usar o intent chooser
-                        } catch (ActivityNotFoundException e) {
-                            Toast.makeText(WebViewActivity.this, "Error :" + e, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    public  boolean checkPermission() {
-                        int result = ContextCompat.checkSelfPermission(WebViewActivity.this,
-                                Manifest.permission.READ_EXTERNAL_STORAGE);
-                        if (result == PackageManager.PERMISSION_GRANTED) {
-                            Log.v("Permissao 1","Permission is granted");
-                            return true;
-                        } else {
-                            Log.v("Negacao 1","Permission is revoked");
-                            return false;
-                        }
-                    }
-
-                    private void requestPermission() {
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(WebViewActivity.this,
-                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                            Toast.makeText(WebViewActivity.this,
-                                    "Write External Storage permission allows us to read files.", Toast.LENGTH_LONG).show();
-                            Log.e("Request permission", "Ja tem permissao");
-                        } else {
-                            Log.e("Request permission", "pediu permissao");
-                            ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{
-                                    Manifest.permission.READ_EXTERNAL_STORAGE
-                            }, PERMISSION_REQUEST_CODE);
-//                            ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{
-//                                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                            }, PERMISSION_REQUEST_CODE);
-                        }
-                    }
-                });
-
                 myWebView.loadUrl(link);
             } else {
                 Toast.makeText(getApplicationContext(), "Sem internet", Toast.LENGTH_SHORT).show();
@@ -294,59 +122,6 @@ public class WebViewActivity extends AppCompatActivity {
         } catch (Exception e) {
             exception = e;
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private class MyChrome extends WebChromeClient {
-
-        private View mCustomView;
-        private WebChromeClient.CustomViewCallback mCustomViewCallback;
-        protected FrameLayout mFullscreenContainer;
-        private int mOriginalOrientation;
-        private int mOriginalSystemUiVisibility;
-
-        MyChrome() {}
-
-        public Bitmap getDefaultVideoPoster() {
-            if (mCustomView == null) {
-                return null;
-            }
-            return BitmapFactory.decodeResource(getApplicationContext().getResources(), 2130837573);
-        }
-
-        @Override
-        public void onProgressChanged(WebView view, int progress) {
-            progressBar.setProgress(progress);
-                if (progress == 100) {
-                    progressBar.setVisibility(View.GONE);
-                } else {
-                    progressBar.setVisibility(View.VISIBLE);
-                }
-        }
-
-        public void onHideCustomView()
-        {
-            ((FrameLayout)getWindow().getDecorView()).removeView(this.mCustomView);
-            this.mCustomView = null;
-            getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
-            setRequestedOrientation(this.mOriginalOrientation);
-            this.mCustomViewCallback.onCustomViewHidden();
-            this.mCustomViewCallback = null;
-        }
-
-        public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback)
-        {
-            if (this.mCustomView != null)
-            {
-                onHideCustomView();
-                return;
-            }
-            this.mCustomView = paramView;
-            this.mOriginalSystemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
-            this.mOriginalOrientation = getRequestedOrientation();
-            this.mCustomViewCallback = paramCustomViewCallback;
-            ((FrameLayout)getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
-            getWindow().getDecorView().setSystemUiVisibility(3846 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
     }
 
@@ -373,9 +148,6 @@ public class WebViewActivity extends AppCompatActivity {
                     File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atvName);
                     if (dir.exists()) {
                         Log.e("entrou no dir", "Dir do onRequestPermission");
-                        // onde estava o erro
-//                        File file = new File(dir, "" + atvName);
-
                         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
                         pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -464,17 +236,19 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Check if the key event was the Back button and if there's history
+        // checar se o botao de voltar foi clicado e se tem paginas para voltar
         if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
             myWebView.goBack();
             return true;
         }
-        // If it wasn't the Back key or there's no web page history, bubble up to the default
-        // system behavior (probably exit the main_fragment)
+        // se nao tiver nenhuma pagina para voltar ele vai sair do main_fragment
         return super.onKeyDown(keyCode, event);
     }
 
-    private class MyWebViewClient extends WebViewClient {
+
+
+    ///ver se remove isso depois
+    /*private class MyWebViewClient extends WebViewClient {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -592,7 +366,7 @@ public class WebViewActivity extends AppCompatActivity {
             }
             return true;
         }
-    }
+    }*/
 }
 
 
