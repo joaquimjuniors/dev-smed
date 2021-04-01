@@ -26,15 +26,19 @@ import java.io.File;
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class MyDownloadListener implements DownloadListener {
+
     Context context;
     Activity activity;
     String atvName;
-    public MyDownloadListener(Context ctx, Activity act, String atv){
+
+    public MyDownloadListener(Context ctx, Activity act, String atv) {
+        super();
         context = ctx;
         activity = act;
         atvName = atv;
     }
 
+    @Override
     public void onDownloadStart(String url, String userAgent, String contentDisposition,
                                 String mimetype, long contentLength) {
         atvName = URLUtil.guessFileName(url, contentDisposition, mimetype);
@@ -147,10 +151,6 @@ public class MyDownloadListener implements DownloadListener {
             ActivityCompat.requestPermissions(activity, new String[]{
                     Manifest.permission.READ_EXTERNAL_STORAGE
             }, 1);
-//                            ActivityCompat.requestPermissions(WebViewActivity.this, new String[]{
-//                                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-//                            }, PERMISSION_REQUEST_CODE);
         }
     }
-
 }

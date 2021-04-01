@@ -15,12 +15,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MyWebViewClient extends WebViewClient {
+
     private ProgressBar progressBar;
     private Context context;
     private SwipeRefreshLayout swipe;
 
-    public MyWebViewClient(){}
-    public MyWebViewClient(Context ctx, ProgressBar pb, SwipeRefreshLayout srl){
+    private String title = "";
+
+    public MyWebViewClient() {}
+
+    public MyWebViewClient(Context ctx, ProgressBar pb, SwipeRefreshLayout srl) {
         context = ctx;
         progressBar = pb;
         swipe = srl;
@@ -31,6 +35,7 @@ public class MyWebViewClient extends WebViewClient {
         super.onPageStarted(view, url, favicon);
         progressBar.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
@@ -44,6 +49,9 @@ public class MyWebViewClient extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         progressBar.setVisibility(View.GONE);
         swipe.setRefreshing(false);
+        if (view.getTitle() != null && view.getTitle().length() > 0) {
+            title = view.getTitle();
+        }
     }
 
     //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
