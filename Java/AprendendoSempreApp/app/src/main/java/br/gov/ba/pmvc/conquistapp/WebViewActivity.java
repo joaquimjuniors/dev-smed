@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -45,6 +46,7 @@ public class WebViewActivity extends AppCompatActivity {
     private String url = "";
 
     private static final int PERMISSION_REQUEST_CODE = 1;
+    private MyDownloadListener myDownloadListener;
     String atvName;
 
     @SuppressLint("SetJavaScriptEnable")
@@ -59,6 +61,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             myWebView = findViewById(R.id.webView);
             swipe = findViewById(R.id.swipe);
+            myDownloadListener = new MyDownloadListener(WebViewActivity.this, atvName);
 
             progressBar = findViewById(R.id.progress_bar);
             progressBar.setMax(100);
@@ -77,50 +80,9 @@ public class WebViewActivity extends AppCompatActivity {
                 webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                 Locale.setDefault(new Locale("pt", "BR"));
 
-                myWebView.setWebChromeClient(new MyChromeClient(WebViewActivity.this, progressBar, WebViewActivity.this));
-                myWebView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-
-
-                    @Override
-                    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                        view.stopLoading();
-                        Toast toast = Toast.makeText(WebViewActivity.this, "Sem conexão com a internet!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        view.loadUrl("file:///android_asset/error.html");
-                    }
-
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        progressBar.setVisibility(View.GONE);
-                        swipe.setRefreshing(false);
-                        if (view.getTitle() != null && view.getTitle().length() > 0) {
-                            webViewTitle = view.getTitle();
-                        }
-
-//                        getSupportActionBar().setTitle(actionBarTitle);
-                        getSupportActionBar().setSubtitle(webViewTitle);
-                    }
-
-                    //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");
-                    List<String> whiteHosts = Arrays.asList("aprendendosempre.org", "smed.pmvc.ba.gov.br");
-
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        String host = Uri.parse(url).getHost();
-                        if (whiteHosts.contains(host)) {
-                            return false;
-                        }
-
-                        view.loadUrl("smed.pmvc.ba.gov.br/estudoremoto/login-control");
-                        return true;
-                    }
-                });
-//                myWebView.setWebViewClient(new MyWebViewClient(WebViewActivity.this, progressBar, swipe));
-                myWebView.setDownloadListener(new MyDownloadListener(WebViewActivity.this, WebViewActivity.this, atvName));
+                myWebView.setWebChromeClient(new MyChromeClient(WebViewActivity.this, progressBar));
+                myWebView.setWebViewClient(new MyWebViewClient(WebViewActivity.this, progressBar, swipe));
+                myWebView.setDownloadListener(myDownloadListener);
 
                 swipe.setRefreshing(true);
 
@@ -156,34 +118,21 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        Log.v("Permissao","code: "+requestCode);
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.v("Permissao 3","Permission: "+permissions[0]+ "was "+grantResults[0]);
-
-                    File sdcard = Environment.getExternalStorageDirectory();
-                    File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atvName);
-                    if (dir.exists()) {
-                        Log.e("entrou no dir", "Dir do onRequestPermission");
-                        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-                        pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        Uri uri = FileProvider.getUriForFile(WebViewActivity.this,
-                                WebViewActivity.this.getApplicationContext().getPackageName() + ".provider", dir);
-                        pdfIntent.setDataAndType(uri, "application/pdf");
-
-                        Intent chooser = Intent.createChooser(pdfIntent, "Abrir arquivo com");
-//                        chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            startActivity(chooser);
-                        } catch (ActivityNotFoundException e) {
-                            Toast.makeText(WebViewActivity.this, "Error :" + e , Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else {
-                    Log.e("Negacao", "Permission Denied, You cannot use local drive .");
+                    Log.v("Permissao","Permission: "+permissions[0]+ " was "+grantResults[0]);
+                    myDownloadListener.loadFile(myDownloadListener.atvName);
+                }else{
+                    Log.e("Permissao", "Permissao nao garantida");
+                    Toast toast = Toast.makeText(WebViewActivity.this,"O app precisa de permissão de acesso ao armazenamento, para que as atividades possa ser executadas.",Toast.LENGTH_LONG);
+                    toast.show();
                 }
                 break;
+            default:
+
         }
     }
 

@@ -1,5 +1,6 @@
 package br.gov.ba.pmvc.conquistapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.Arrays;
@@ -17,23 +19,26 @@ import java.util.List;
 public class MyWebViewClient extends WebViewClient {
 
     private ProgressBar progressBar;
-    private Context context;
+    private Activity activity;
     private SwipeRefreshLayout swipe;
 
-    private String title = "";
+
+    private Context context;
+    private String webViewTitle = "";
 
     public MyWebViewClient() {}
 
-    public MyWebViewClient(Context ctx, ProgressBar pb, SwipeRefreshLayout srl) {
-        context = ctx;
+    public MyWebViewClient(Activity act, ProgressBar pb, SwipeRefreshLayout srl) {
+        activity = act;
         progressBar = pb;
         swipe = srl;
+        context = activity.getApplicationContext();
     }
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        super.onPageStarted(view, url, favicon);
         progressBar.setVisibility(View.VISIBLE);
+
     }
 
 
@@ -50,8 +55,11 @@ public class MyWebViewClient extends WebViewClient {
         progressBar.setVisibility(View.GONE);
         swipe.setRefreshing(false);
         if (view.getTitle() != null && view.getTitle().length() > 0) {
-            title = view.getTitle();
+            webViewTitle = view.getTitle();
         }
+
+//                        getSupportActionBar().setTitle(actionBarTitle);
+        ((AppCompatActivity)activity).getSupportActionBar().setSubtitle(webViewTitle);
     }
 
     //List<String> whiteHosts = Arrays.asList("stackoverflow.com",  "stackexchange.com", "google.com");

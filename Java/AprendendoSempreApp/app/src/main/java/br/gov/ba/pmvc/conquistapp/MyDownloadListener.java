@@ -27,15 +27,15 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class MyDownloadListener implements DownloadListener {
 
-    Context context;
     Activity activity;
     String atvName;
+    Context context;
 
-    public MyDownloadListener(Context ctx, Activity act, String atv) {
+    public MyDownloadListener(Activity act, String atv) {
         super();
-        context = ctx;
         activity = act;
         atvName = atv;
+        context = activity.getApplicationContext();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MyDownloadListener implements DownloadListener {
         }
     }
 
-    BroadcastReceiver onComplete = new BroadcastReceiver() {
+    BroadcastReceiver onComplete = new BroadcastReceiver() { //receiver que executa o arquivo quando o download e' finalizado
         public void onReceive(Context ctxt, Intent intent) {
             loadFile(atvName);
         }
@@ -92,7 +92,7 @@ public class MyDownloadListener implements DownloadListener {
                     openPDF(dir);
                 }
             } else {
-                requestPermission(); // Code for permission
+                requestPermission();
             }
         } else {
             //por enquando ele esta abrindo, mas caso for fazer algo diferente na webview para celulares antigos, e' aqui
@@ -114,13 +114,12 @@ public class MyDownloadListener implements DownloadListener {
         Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
         pdfIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         pdfIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//                        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        Uri uri = FileProvider.getUriForFile(context,
-                context.getApplicationContext().getPackageName() + ".provider", atv);
+
+        Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", atv);
         pdfIntent.setDataAndType(uri, "application/pdf");
 
         Intent chooser = Intent.createChooser(pdfIntent, "Abrir arquivo com:");
-//                        chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        chooser.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             context.startActivity(chooser); //se for usar o intent chooser
         } catch (ActivityNotFoundException e) {
@@ -128,7 +127,7 @@ public class MyDownloadListener implements DownloadListener {
         }
     }
 
-    public  boolean checkPermission() {
+    public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED) {
@@ -141,16 +140,14 @@ public class MyDownloadListener implements DownloadListener {
     }
 
     private void requestPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Toast.makeText(context,
-                    "Write External Storage permission allows us to read files.", Toast.LENGTH_LONG).show();
-            Log.e("Request permission", "Ja tem permissao");
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            //se for ter alguma tela mostrando porque precisa da permissao, chama ela aqui
         } else {
-            Log.e("Request permission", "pediu permissao");
-            ActivityCompat.requestPermissions(activity, new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-            }, 1);
+            Log.e("Permissao", "Primeira vez ");
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
     }
+
+
 }

@@ -19,14 +19,14 @@ public class MyChromeClient extends WebChromeClient {
     private int mOriginalOrientation;
     private int mOriginalSystemUiVisibility;
 
-    private Context context;
     private ProgressBar progressBar;
     private Activity activity;
+    private Context context;
 
-    public MyChromeClient(Context ctx, ProgressBar pb, Activity act) {
-        context = ctx;
+    public MyChromeClient(Activity act, ProgressBar pb) {
         progressBar = pb;
         activity = act;
+        context = activity.getApplicationContext();
     }
 
     public Bitmap getDefaultVideoPoster() {
