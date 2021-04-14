@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splah_gradient"
+    tools:context="br.gov.ba.pmvc.conquistapp.com.pmvc.conquistapp.LoginActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_lines"
+        >
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="105dp"
+            android:layout_height="68dp"
+            android:src="@mipmap/educareconquista_logo"
+            android:tint="@color/color3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.083" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@string/app_name"
+            android:textAllCaps="true"
+            android:textColor="@color/color3"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <EditText
+            android:id="@+id/txtBoxLogin"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="396dp"
+            android:background="@drawable/teste"
+            android:textColor="@color/black_overlay"
+            android:ems="10"
+            android:hint="Nome"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/Button.Secondary"
+            android:layout_width="152dp"
+            android:layout_height="57dp"
+            android:layout_marginBottom="88dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Entrar"
+            android:textColor="@color/color3"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="228dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="8dp"
+            android:text="Numero de Matricula"
+            android:fontFamily="@font/quicksand_bold"
+            android:textColor="@color/color3"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/txtBoxLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.344"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

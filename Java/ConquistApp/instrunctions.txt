@@ -1,0 +1,25 @@
+Fluxo:
+start -> activity splash screen -(1s)-> activity login -> activity main => fragment ->
+content main e content bottom sheet -> webview
+
+
+-MainActivity.java
+ barra com botões home + um intent que carrega:
+ -o main_fragment se tiver em main e o about_fragment se tiver em about
+
+-main_fragment
+ activity "content_main" com o activity "content_bottom_sheet" por cima
+ -content_main: tela azul com botão saiba mais que abre o aprendendosempre.org
+ -content_bottom_sheet: aba inferior que guarda os botões que acessam os diversos sites
+
+mudanças temporarias:
+mainfragment.java
+linha 81: por 82-84
+tirar da lista de sites na linha 130 o site do smed
+-tirar dos strings o site
+-tirar o logo_pmvc do mipmap
+
+mainactivity.java
+descomentar o codigo comentado por falta da key da Datami
+apagar tudo abaixo de temp na 52
+
