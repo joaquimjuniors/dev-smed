@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -21,8 +22,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.datami.smi.SmiResult;
+import com.datami.smi.SmiSdk;
+import com.datami.smi.SmiVpnSdk;
+
 import java.io.File;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class MyDownloadListener implements DownloadListener {
@@ -43,6 +49,7 @@ public class MyDownloadListener implements DownloadListener {
                                 String mimetype, long contentLength) {
         atvName = URLUtil.guessFileName(url, contentDisposition, mimetype);
         DownloadManager dm;
+        Log.e("dmi","aa"+SmiVpnSdk.getCurrentSdState());
 
         Uri downloadUri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
@@ -50,7 +57,7 @@ public class MyDownloadListener implements DownloadListener {
         request.setAllowedOverMetered(true);
         request.setAllowedOverRoaming(true);
         request.allowScanningByMediaScanner();
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, atvName);
 
         dm = (DownloadManager) context.getSystemService(DOWNLOAD_SERVICE);
@@ -73,6 +80,7 @@ public class MyDownloadListener implements DownloadListener {
         } else {
             loadFile(atvName);
         }
+
     }
 
     BroadcastReceiver onComplete = new BroadcastReceiver() { //receiver que executa o arquivo quando o download e' finalizado

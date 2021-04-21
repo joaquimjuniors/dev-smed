@@ -36,23 +36,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void abrirWeb(){ //versao onde o app apenas executa a webview e tudo eh organizado pela plataforma online
-        try {
-            String mySdkKey = getString(R.string.SDK_KEY);
-            int sdIconId = R.drawable.ic_launcher_foreground;
-
-//          List<String> exclusionDomains = new ArrayList<String>(2);
-//          exclusionDomains.add("www.google.com");
-//          exclusionDomains.add("www.google.com.br");
-//          SmiSdk.initSponsoredData(mySdkKey, this, "", sdIconId, false);
-            //SmiVpnSdk.initSponsoredData(mySdkKey, this, sdIconId, MessagingType.BOTH,false);
-
-            //setContentView(R.layout.activity_splash_screen);
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Error :" + e , Toast.LENGTH_LONG).show();
-        }
-
-
         Intent intent = new Intent(SplashScreenActivity.this, WebViewActivity.class);
         intent.putExtra("Link", "http://smed.pmvc.ba.gov.br/estudoremoto/");
         SplashScreenActivity.this.startActivity(intent);
