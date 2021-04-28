@@ -10,7 +10,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.pmvc.conquistapp"
+        applicationId "br.gov.ba.pmvc.vcapp"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
     implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -51,6 +52,7 @@ dependencies {
     implementation 'com.android.support:design:28.0.2'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.android.support:multidex:+'
+    implementation "androidx.tonyodev.fetch2:xfetch2:3.1.6"
     //implementation 'com.datami:smisdk:+'
 
     implementation("com.google.guava:guava:29.0-android")

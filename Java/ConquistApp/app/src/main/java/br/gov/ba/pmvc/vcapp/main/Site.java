@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp.main;
+package br.gov.ba.pmvc.vcapp.main;
 
 public class Site {
 

@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp;
+package br.gov.ba.pmvc.vcapp;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.pmvc.conquistapp.R;
 
 public class AboutFragment extends Fragment {
 

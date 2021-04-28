@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp;
+package br.gov.ba.pmvc.vcapp;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -24,8 +24,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.Locale;
 
-import com.pmvc.conquistapp.R;
-
 public class WebViewActivity extends AppCompatActivity {
 
     private WebView myWebView;
@@ -46,6 +44,7 @@ public class WebViewActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             getWindow().requestFeature(Window.FEATURE_PROGRESS);
             setContentView(R.layout.activity_web_view);
+
 
             String link = getIntent().getExtras().getString("Link");
 
@@ -86,11 +85,11 @@ public class WebViewActivity extends AppCompatActivity {
 
                 myWebView.loadUrl(link);
             } else {
-                Toast.makeText(getApplicationContext(), "Sem internet", Toast.LENGTH_SHORT).show();
+                ToastStack.createToast(getApplicationContext(), "Sem internet", Toast.LENGTH_SHORT);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error :" + e, Toast.LENGTH_SHORT).show();
+            ToastStack.createToast(this, "Error :" + e, Toast.LENGTH_SHORT);
         }
     }
 
@@ -117,8 +116,7 @@ public class WebViewActivity extends AppCompatActivity {
                     myDownloadListener.loadFile(myDownloadListener.atvName);
                 }else{
                     Log.e("Permissao", "Permissao nao garantida");
-                    Toast toast = Toast.makeText(WebViewActivity.this,"O app precisa de permissão de acesso ao armazenamento, para que as atividades possa ser executadas.",Toast.LENGTH_LONG);
-                    toast.show();
+                    ToastStack.createToast(WebViewActivity.this,"O app precisa de permissão de acesso ao armazenamento, para que as atividades possa ser executadas.",Toast.LENGTH_LONG);
                 }
                 break;
             default:

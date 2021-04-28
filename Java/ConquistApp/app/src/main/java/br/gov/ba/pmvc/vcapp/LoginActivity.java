@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp;
+package br.gov.ba.pmvc.vcapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.pmvc.conquistapp.R;
 
-import com.pmvc.conquistapp.main.MainActivity;
+import br.gov.ba.pmvc.vcapp.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

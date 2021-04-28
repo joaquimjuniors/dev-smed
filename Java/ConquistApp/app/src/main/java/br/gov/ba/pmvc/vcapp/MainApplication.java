@@ -1,21 +1,30 @@
-package com.pmvc.conquistapp;
+package br.gov.ba.pmvc.vcapp;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.multidex.MultiDexApplication;
 
 import com.datami.smi.*;
 import com.datami.smi.internal.MessagingType;
+import com.tonyodev.fetch2.Fetch;
+import com.tonyodev.fetch2.FetchConfiguration;
+import com.tonyodev.fetch2.HttpUrlConnectionDownloader;
+import com.tonyodev.fetch2core.Downloader;
 
-public class MainApplication extends MultiDexApplication implements SdStateChangeListener {
+public class MainApplication extends MultiDexApplication implements SdStateChangeListener, Application.ActivityLifecycleCallbacks {
 
     private Context context;
     private int duration;
     SdState tempState;
+    public static boolean isBackground;
 
     private static final String TAG = WebViewActivity.class.getName();
     protected static SdState sdState;
@@ -23,7 +32,7 @@ public class MainApplication extends MultiDexApplication implements SdStateChang
     @Override
     public void onCreate() {
         super.onCreate();
-
+        registerActivityLifecycleCallbacks(this);
         try {
             String mySdkKey = getString(R.string.SDK_KEY);
             int sdIconId = R.drawable.ic_launcher_foreground;
@@ -37,7 +46,17 @@ public class MainApplication extends MultiDexApplication implements SdStateChang
         }
 
         context = getApplicationContext();
-        duration = Toast.LENGTH_SHORT;
+        duration = Toast.LENGTH_LONG;
+
+        final FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(this)
+                .enableLogging(true)
+                .enableRetryOnNetworkGain(true)
+                .setDownloadConcurrentLimit(3)
+                .setHttpDownloader(new HttpUrlConnectionDownloader(Downloader.FileDownloaderType.PARALLEL))
+                // OR
+                //.setHttpDownloader(getOkHttpDownloader())
+                .build();
+        Fetch.Impl.setDefaultInstanceConfiguration(fetchConfiguration);
     }
 
     @Override
@@ -58,9 +77,46 @@ public class MainApplication extends MultiDexApplication implements SdStateChang
         tempState = sdState;
         final String tempMSG = ""+text;
         ContextCompat.getMainExecutor(context).execute(()  -> {
-                    Toast.makeText(context, tempMSG, duration).show();
+            ToastStack.createStateToast(context,tempMSG,duration);
         });
     }
 
 
+    @Override
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onActivityStarted(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityResumed(@NonNull Activity activity) {
+        isBackground = false;
+        ToastStack.showToast();
+        Log.e("StateACT","fore");
+    }
+
+    @Override
+    public void onActivityPaused(@NonNull Activity activity) {
+        isBackground = true;
+        Log.e("StateACT","back");
+    }
+
+    @Override
+    public void onActivityStopped(@NonNull Activity activity) {
+
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
+    }
+
+    @Override
+    public void onActivityDestroyed(@NonNull Activity activity) {
+
+    }
 }

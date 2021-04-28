@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp.main;
+package br.gov.ba.pmvc.vcapp.main;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.datami.smi.SmiSdk;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import com.pmvc.conquistapp.AboutFragment;
-import com.pmvc.conquistapp.R;
+import br.gov.ba.pmvc.vcapp.AboutFragment;
+import br.gov.ba.pmvc.vcapp.R;
 
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {

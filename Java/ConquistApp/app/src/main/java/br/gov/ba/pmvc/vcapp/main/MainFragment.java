@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp.main;
+package br.gov.ba.pmvc.vcapp.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import com.pmvc.conquistapp.R;
-import com.pmvc.conquistapp.WebViewActivity;
+import br.gov.ba.pmvc.vcapp.R;
+import br.gov.ba.pmvc.vcapp.WebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;

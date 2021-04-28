@@ -1,17 +1,11 @@
-package com.pmvc.conquistapp;
+package br.gov.ba.pmvc.vcapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
 
-import com.datami.smi.SmiSdk;
-import com.datami.smi.SmiVpnSdk;
-import com.datami.smi.internal.MessagingType;
-
-import com.pmvc.conquistapp.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.pmvc.conquistapp;
+package br.gov.ba.pmvc.vcapp;
 
 import android.app.Activity;
 import android.content.Context;
