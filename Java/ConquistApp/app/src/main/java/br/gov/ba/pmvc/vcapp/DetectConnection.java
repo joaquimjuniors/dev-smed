@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class DetectConnection {
+
     public static boolean haveNetworkConnection(Context context) {
         boolean haveConnecetedWifi = false;
         boolean haveConnecetedMobile = false;

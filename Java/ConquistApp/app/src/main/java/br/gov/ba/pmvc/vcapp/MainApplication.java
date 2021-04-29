@@ -12,7 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.multidex.MultiDexApplication;
 
-import com.datami.smi.*;
+import com.datami.smi.SdState;
+import com.datami.smi.SdStateChangeListener;
+import com.datami.smi.SmiResult;
+import com.datami.smi.SmiVpnSdk;
 import com.datami.smi.internal.MessagingType;
 import com.tonyodev.fetch2.Fetch;
 import com.tonyodev.fetch2.FetchConfiguration;

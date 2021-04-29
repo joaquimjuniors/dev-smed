@@ -2,15 +2,11 @@ package br.gov.ba.pmvc.vcapp;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -25,16 +21,10 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.datami.smi.SmiResult;
-import com.datami.smi.SmiSdk;
-import com.datami.smi.SmiVpnSdk;
 import com.tonyodev.fetch2.Download;
 import com.tonyodev.fetch2.Error;
 import com.tonyodev.fetch2.Fetch;
-import com.tonyodev.fetch2.FetchConfiguration;
 import com.tonyodev.fetch2.FetchListener;
-import com.tonyodev.fetch2.NetworkType;
-import com.tonyodev.fetch2.Priority;
 import com.tonyodev.fetch2.Request;
 import com.tonyodev.fetch2core.DownloadBlock;
 import com.tonyodev.fetch2core.Extras;
@@ -48,10 +38,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import static android.content.ContentValues.TAG;
-import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class MyDownloadListener implements DownloadListener, FetchObserver<Download> {
 
@@ -98,7 +84,7 @@ public class MyDownloadListener implements DownloadListener, FetchObserver<Downl
                     mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
                     NotificationManager notificationManager = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
                     notificationManager.notify(0, mBuilder.build());
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -117,13 +103,14 @@ public class MyDownloadListener implements DownloadListener, FetchObserver<Downl
             @Override
             public void onDeleted(@NotNull Download download) {}
         };
+
         fetch.addListener(fetchListener);
 
         File sdcard = Environment.getExternalStorageDirectory();
         File dir = new File(sdcard.getAbsolutePath() + "/Download/" + atvName);
 
         if (!dir.exists()) {
-            if(!checkWritePermission()){
+            if (!checkWritePermission()){
                 requestPermission();
             }
             enqueueDownload(url);
@@ -132,6 +119,7 @@ public class MyDownloadListener implements DownloadListener, FetchObserver<Downl
         }
 
     }
+
     private void enqueueDownload(String url) {
         File sdcard = Environment.getExternalStorageDirectory();
         final String filePath = sdcard.getAbsolutePath() + "/Download/" + atvName;
@@ -145,12 +133,11 @@ public class MyDownloadListener implements DownloadListener, FetchObserver<Downl
                         request = result;
                         ToastStack.createToast(context, "Download iniciado", Toast.LENGTH_SHORT);
                     }
-
                 }, new Func<Error>() {
                     @Override
                     public void call(@NotNull Error result) {
-                        Log.d("SingleD Error: %1$s", result.toString());
-                        ToastStack.createToast(context, "Erro ao fazer o download!", Toast.LENGTH_SHORT);
+                        Log.e("Erro", result.toString());
+                        ToastStack.createToast(context, result.toString(), Toast.LENGTH_SHORT);
                     }
                 });
     }
@@ -172,7 +159,8 @@ public class MyDownloadListener implements DownloadListener, FetchObserver<Downl
                 requestPermission();
             }
         } else {
-            //por enquando ele esta abrindo, mas caso for fazer algo diferente na webview para celulares antigos, e' aqui
+            //por enquando ele esta abrindo, mas caso for fazer algo diferente na webview para celulares antigos, eh aqui
+            System.out.println("Teste");
             Log.e("SDK < 23", "versao menor que 23");
             if (checkReadPermission()) {
                 File sdcard = Environment.getExternalStorageDirectory();
@@ -244,7 +232,5 @@ public class MyDownloadListener implements DownloadListener, FetchObserver<Downl
     }
 
     @Override
-    public void onChanged(Download download, @NotNull Reason reason) {
-
-    }
+    public void onChanged(Download download, @NotNull Reason reason) { }
 }

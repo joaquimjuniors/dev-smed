@@ -13,18 +13,17 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import br.gov.ba.pmvc.vcapp.R;
-import br.gov.ba.pmvc.vcapp.WebViewActivity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import br.gov.ba.pmvc.vcapp.R;
+import br.gov.ba.pmvc.vcapp.WebViewActivity;
 
 public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.ViewHolder> implements Filterable {
 
     private final Context context;
     private final List<Site> list;
     private final List<Site> listFull;
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -49,7 +48,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.ViewHolder> im
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -109,7 +107,6 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.ViewHolder> im
             parentLayout = itemView.findViewById(R.id.mCardViewBanner);
         }
     }
-
 }
 
 

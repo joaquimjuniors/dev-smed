@@ -1,11 +1,10 @@
 package br.gov.ba.pmvc.vcapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -29,7 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         finish();
     }
 
-    private void abrirWeb(){ //versao onde o app apenas executa a webview e tudo eh organizado pela plataforma online
+    private void abrirWeb() { //versao onde o app apenas executa a webview e tudo eh organizado pela plataforma online
         Intent intent = new Intent(SplashScreenActivity.this, WebViewActivity.class);
         intent.putExtra("Link", "http://smed.pmvc.ba.gov.br/estudoremoto/");
         SplashScreenActivity.this.startActivity(intent);

@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-
 
 import com.datami.smi.SmiSdk;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,9 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import br.gov.ba.pmvc.vcapp.AboutFragment;
 import br.gov.ba.pmvc.vcapp.R;
 
-
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             BottomNavigationView navigationView = findViewById(R.id.bottom_navigation);
             navigationView.setOnNavigationItemSelectedListener(this);
-
         } catch (Exception e) {
             Toast.makeText(this, "Error :" + e , Toast.LENGTH_LONG).show();
         }

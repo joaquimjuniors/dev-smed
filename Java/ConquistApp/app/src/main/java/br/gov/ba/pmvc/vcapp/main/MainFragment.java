@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -24,11 +25,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import br.gov.ba.pmvc.vcapp.R;
-import br.gov.ba.pmvc.vcapp.WebViewActivity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import br.gov.ba.pmvc.vcapp.R;
+import br.gov.ba.pmvc.vcapp.WebViewActivity;
 
 public class MainFragment extends Fragment {
 

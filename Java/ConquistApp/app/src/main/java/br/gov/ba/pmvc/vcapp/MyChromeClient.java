@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
-import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -46,8 +45,7 @@ public class MyChromeClient extends WebChromeClient {
         }
     }
 
-    public void onHideCustomView()
-    {
+    public void onHideCustomView() {
         ((FrameLayout)activity.getWindow().getDecorView()).removeView(this.mCustomView);
         this.mCustomView = null;
         activity.getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
@@ -57,10 +55,8 @@ public class MyChromeClient extends WebChromeClient {
     }
 
     @Override
-    public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback)
-    {
-        if (this.mCustomView != null)
-        {
+    public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback) {
+        if (this.mCustomView != null) {
             onHideCustomView();
             return;
         }

@@ -17,13 +17,13 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
+        try {
             View view = inflater.inflate(R.layout.about_fragment, container, false);
 
             setupLinks(view);
 
             return view;
-        }catch (Exception e){
+        } catch (Exception e) {
 
             Toast.makeText(requireContext(), "Error :" + e , Toast.LENGTH_SHORT).show();
             return null;
