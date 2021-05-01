@@ -49,15 +49,18 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.2.0-alpha06'
-    implementation 'com.android.support:design:28.0.2'
+//    implementation 'com.android.support:design:28.0.2'
+    implementation 'com.android.support:design:29.0.0'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'com.android.support:multidex:+'
     implementation "androidx.tonyodev.fetch2:xfetch2:3.1.6"
     //implementation 'com.datami:smisdk:+'
 
     implementation("com.google.guava:guava:29.0-android")
-    implementation 'com.android.support:recyclerview-v7:26.1.0'
-    implementation 'com.android.support:appcompat-v7:28.0.2'
+//    implementation 'com.android.support:recyclerview-v7:26.1.0'
+    implementation 'com.android.support:recyclerview-v7:29.0.0'
+//    implementation 'com.android.support:appcompat-v7:28.0.2'
+    implementation 'com.android.support:appcompat-v7:29.0.0'
     // butter knife
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
