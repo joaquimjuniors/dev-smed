@@ -220,26 +220,5 @@ public class MainFragment extends Fragment {
             return metrics.widthPixels;
         }
 
-        public int getRealHeight() {
-            return metrics.heightPixels / metrics.densityDpi;
-        }
-
-        public int getRealWidth() {
-            return metrics.widthPixels / metrics.densityDpi;
-        }
-
-        public int getDensity() {
-            return metrics.densityDpi;
-        }
-
-        public int getScale(int picWidth) {
-            Display display
-                    = ((WindowManager) ctx.getSystemService(Context.WINDOW_SERVICE))
-                    .getDefaultDisplay();
-            int width = display.getWidth();
-            Double val = new Double(width) / new Double(picWidth);
-            val = val * 100d;
-            return val.intValue();
-        }
     }
 }

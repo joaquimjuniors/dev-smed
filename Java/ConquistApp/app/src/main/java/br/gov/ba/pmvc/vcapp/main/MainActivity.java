@@ -47,44 +47,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
 
-    private void confirmDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Tem certeza que quer sair")
-                .setCancelable(false)
-                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-    public boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_DENIED) {
-                Log.v("PERMISSIONS", "Permissao autorizada");
-                return true;
-            } else {
-                Log.v("PERMISSIONS", "Permission is garnted");
-                ActivityCompat.requestPermissions(this, new String[] {
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return true;
-            }
-        } else {
-            Log.v("PERMISSIONS", "Permission is granted");
-            return  true;
-        }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
