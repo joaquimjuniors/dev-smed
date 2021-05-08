@@ -35,7 +35,6 @@ public class WebViewActivity extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     private MyDownloadListener myDownloadListener;
-    String atvName;
 
     @SuppressLint("SetJavaScriptEnable")
     @Override
@@ -50,7 +49,7 @@ public class WebViewActivity extends AppCompatActivity {
 
             myWebView = findViewById(R.id.webView);
             swipe = findViewById(R.id.swipe);
-            myDownloadListener = new MyDownloadListener(WebViewActivity.this, atvName);
+            myDownloadListener = new MyDownloadListener(WebViewActivity.this);
 
             progressBar = findViewById(R.id.progress_bar);
             progressBar.setMax(100);
@@ -113,7 +112,7 @@ public class WebViewActivity extends AppCompatActivity {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.v("Permissao","Permission: "+permissions[0]+ " was "+grantResults[0]);
-                    myDownloadListener.loadFile(myDownloadListener.atvName);
+                    myDownloadListener.onPermissionGranted();
                 }else{
                     Log.e("Permissao", "Permissao nao garantida");
                     ToastStack.createToast(WebViewActivity.this,"O app precisa de permissão de acesso ao armazenamento, para que as atividades possa ser executadas.",Toast.LENGTH_LONG);

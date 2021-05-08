@@ -1,0 +1,254 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="br.gov.ba.pmvc.vcapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml
+10    <!-- Permissões -->
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+12-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:6:5-76
+12-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:6:22-73
+13    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+13-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:7:5-87
+13-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:7:22-85
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:8:5-79
+14-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:8:22-76
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:9:5-81
+15-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:9:22-78
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+16-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:10:5-80
+16-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:10:22-77
+17    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+17-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:11:5-77
+17-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:11:22-74
+18
+19    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
+20    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+20-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:14:5-81
+20-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:14:22-78
+21    <uses-permission android:name="android.permission.CAMERA" /> <!-- Don't require camera, as this requires a rear camera. This allows it to work on the Nexus 7 -->
+21-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:22:5-65
+21-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:22:22-62
+22    <uses-feature
+22-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:25:5-27:36
+23        android:name="android.hardware.camera"
+23-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:26:9-47
+24        android:required="false" />
+24-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:27:9-33
+25    <uses-feature
+25-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:28:5-30:36
+26        android:name="android.hardware.camera.front"
+26-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:29:9-53
+27        android:required="false" /> <!-- TODO replace above two with next line after Android 4.2 -->
+27-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:30:9-33
+28    <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
+29    <uses-feature
+29-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:33:5-35:36
+30        android:name="android.hardware.camera.autofocus"
+30-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:34:9-57
+31        android:required="false" />
+31-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:35:9-33
+32    <uses-feature
+32-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:36:5-38:36
+33        android:name="android.hardware.camera.flash"
+33-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:37:9-53
+34        android:required="false" />
+34-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:38:9-33
+35    <uses-feature
+35-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:39:5-41:36
+36        android:name="android.hardware.screen.landscape"
+36-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:40:9-57
+37        android:required="false" />
+37-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:41:9-33
+38    <uses-feature
+38-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:42:5-44:36
+39        android:name="android.hardware.wifi"
+39-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:43:9-45
+40        android:required="false" />
+40-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:44:9-33
+41
+42    <application
+42-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:13:5-70:19
+43        android:name="br.gov.ba.pmvc.vcapp.MainApplication"
+43-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:14:9-40
+44        android:allowBackup="true"
+44-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:15:9-35
+45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+45-->[androidx.core:core:1.3.2] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\870f77caa98361babb7de475f36bb8a2\core-1.3.2\AndroidManifest.xml:24:18-86
+46        android:debuggable="true"
+47        android:icon="@mipmap/ic_launcher"
+47-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:16:9-43
+48        android:label="@string/app_name"
+48-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:17:9-41
+49        android:networkSecurityConfig="@xml/network_security_config"
+49-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:18:9-69
+50        android:requestLegacyExternalStorage="true"
+50-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:19:9-52
+51        android:roundIcon="@mipmap/ic_launcher_round"
+51-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:20:9-54
+52        android:supportsRtl="true"
+52-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:21:9-35
+53        android:testOnly="true"
+54        android:theme="@style/AppTheme"
+54-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:22:9-40
+55        android:usesCleartextTraffic="true" >
+55-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:23:9-44
+56        <provider
+57            android:name="androidx.core.content.FileProvider"
+57-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:26:13-62
+58            android:authorities="br.gov.ba.pmvc.vcapp.provider"
+58-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:27:13-60
+59            android:exported="false"
+59-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:28:13-37
+60            android:grantUriPermissions="true" >
+60-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:29:13-47
+61            <meta-data
+61-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:30:13-32:58
+62                android:name="android.support.FILE_PROVIDER_PATHS"
+62-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:31:17-67
+63                android:resource="@xml/provider_paths" />
+63-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:32:17-55
+64        </provider>
+65
+66        <activity
+66-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:35:9-37:51
+67            android:name="br.gov.ba.pmvc.vcapp.LoginActivity"
+67-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:36:13-42
+68            android:theme="@style/MainActivity" />
+68-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:37:13-48
+69        <activity
+69-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:38:9-47:20
+70            android:name="br.gov.ba.pmvc.vcapp.SplashScreenActivity"
+70-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:39:13-49
+71            android:screenOrientation="portrait"
+71-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:40:13-49
+72            android:theme="@style/SplashTheme" >
+72-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:41:13-47
+73            <intent-filter>
+73-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:42:13-46:29
+74                <action android:name="android.intent.action.MAIN" />
+74-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:43:17-69
+74-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:43:25-66
+75
+76                <category android:name="android.intent.category.LAUNCHER" />
+76-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:45:17-77
+76-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:45:27-74
+77            </intent-filter>
+78        </activity>
+79        <activity android:name="br.gov.ba.pmvc.vcapp.MainApplication" />
+79-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:48:9-53
+79-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:48:19-50
+80        <activity
+80-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:49:9-58:20
+81            android:name="br.gov.ba.pmvc.vcapp.main.MainActivity"
+81-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:50:13-46
+82            android:configChanges="orientation|screenSize"
+82-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:52:13-59
+83            android:theme="@style/MainActivity" >
+83-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:51:13-48
+84            <intent-filter>
+84-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:53:13-57:29
+85                <action android:name="android.intent.action.MAIN" />
+85-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:43:17-69
+85-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:43:25-66
+86
+87                <category android:name="android.intent.category.HOME" />
+87-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:56:17-73
+87-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:56:27-70
+88            </intent-filter>
+89        </activity>
+90        <activity
+90-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:59:9-64:61
+91            android:name="br.gov.ba.pmvc.vcapp.WebViewActivity"
+91-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:60:13-44
+92            android:configChanges="orientation|screenSize"
+92-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:64:13-59
+93            android:label="@string/app_name"
+93-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:61:13-45
+94            android:screenOrientation="portrait"
+94-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:62:13-49
+95            android:theme="@style/WebView" />
+95-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:63:13-43
+96
+97        <uses-library
+97-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:66:9-68:40
+98            android:name="org.apache.http.legacy"
+98-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:67:13-50
+99            android:required="false" /> <!-- SmiSdk Intent Service required for all APIs -->
+99-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:68:13-37
+100        <service android:name="com.datami.smi.SmiIntentService" />
+100-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:69:9-67
+100-->C:\Users\luisc\AndroidStudioProjects\dev-smed\Java\ConquistApp\app\src\main\AndroidManifest.xml:69:18-64
+101
+102        <activity
+102-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:18:9-21:56
+103            android:name="com.datami.smi.ui.VpnPermissionActivity"
+103-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:19:13-67
+104            android:configChanges="orientation|screenSize|keyboard|keyboardHidden"
+104-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:20:13-83
+105            android:theme="@style/Theme.Transparent" />
+105-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:21:13-53
+106
+107        <service android:name="com.datami.smi.wrapper.SmiVPNHandler" />
+107-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:23:9-72
+107-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:23:18-69
+108        <service
+108-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:24:9-31:19
+109            android:name="de.blinkt.openvpn.core.OpenVPNService"
+109-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:25:13-65
+110            android:permission="android.permission.BIND_VPN_SERVICE"
+110-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:26:13-69
+111            android:process=":openvpn" >
+111-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:27:13-39
+112            <intent-filter>
+112-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:28:13-30:29
+113                <action android:name="android.net.VpnService" />
+113-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:29:17-65
+113-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:29:25-62
+114            </intent-filter>
+115        </service>
+116        <service
+116-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:32:9-35:42
+117            android:name="de.blinkt.openvpn.core.OpenVPNStatusService"
+117-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:33:13-71
+118            android:exported="false"
+118-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:34:13-37
+119            android:process=":openvpn" />
+119-->[vpnsdk-android.aar] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\fe0305ad314cff44b8abcece2800c373\jetified-vpnsdk-android\AndroidManifest.xml:35:13-39
+120
+121        <activity
+121-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:47:9-53:63
+122            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+122-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:48:13-74
+123            android:clearTaskOnLaunch="true"
+123-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:49:13-45
+124            android:screenOrientation="sensorLandscape"
+124-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:50:13-56
+125            android:stateNotNeeded="true"
+125-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:51:13-42
+126            android:theme="@style/zxing_CaptureTheme"
+126-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:52:13-54
+127            android:windowSoftInputMode="stateAlwaysHidden" />
+127-->[com.journeyapps:zxing-android-embedded:3.6.0] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\14c78a4b2a474d76172b7d8634def974\jetified-zxing-android-embedded-3.6.0\AndroidManifest.xml:53:13-60
+128
+129        <service
+129-->[androidx.room:room-runtime:2.2.6] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\5656c15061bb6c9a45f2785c725710a9\room-runtime-2.2.6\AndroidManifest.xml:25:9-28:40
+130            android:name="androidx.room.MultiInstanceInvalidationService"
+130-->[androidx.room:room-runtime:2.2.6] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\5656c15061bb6c9a45f2785c725710a9\room-runtime-2.2.6\AndroidManifest.xml:26:13-74
+131            android:directBootAware="true"
+131-->[androidx.room:room-runtime:2.2.6] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\5656c15061bb6c9a45f2785c725710a9\room-runtime-2.2.6\AndroidManifest.xml:27:13-43
+132            android:exported="false" />
+132-->[androidx.room:room-runtime:2.2.6] C:\Users\luisc\.gradle\caches\transforms-2\files-2.1\5656c15061bb6c9a45f2785c725710a9\room-runtime-2.2.6\AndroidManifest.xml:28:13-37
+133    </application>
+134
+135</manifest>

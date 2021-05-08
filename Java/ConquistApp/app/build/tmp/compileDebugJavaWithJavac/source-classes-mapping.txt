@@ -1,0 +1,63 @@
+br/gov/ba/pmvc/vcapp/LoginActivity.java
+ br.gov.ba.pmvc.vcapp.LoginActivity
+ br.gov.ba.pmvc.vcapp.LoginActivity$1
+br/gov/ba/pmvc/vcapp/MyChromeClient.java
+ br.gov.ba.pmvc.vcapp.MyChromeClient
+br/gov/ba/pmvc/vcapp/DetectConnection.java
+ br.gov.ba.pmvc.vcapp.DetectConnection
+br/gov/ba/pmvc/vcapp/ToastStack.java
+ br.gov.ba.pmvc.vcapp.ToastStack
+br/gov/ba/pmvc/vcapp/AboutFragment.java
+ br.gov.ba.pmvc.vcapp.AboutFragment
+ br.gov.ba.pmvc.vcapp.AboutFragment$1
+ br.gov.ba.pmvc.vcapp.AboutFragment$10
+ br.gov.ba.pmvc.vcapp.AboutFragment$11
+ br.gov.ba.pmvc.vcapp.AboutFragment$12
+ br.gov.ba.pmvc.vcapp.AboutFragment$13
+ br.gov.ba.pmvc.vcapp.AboutFragment$14
+ br.gov.ba.pmvc.vcapp.AboutFragment$15
+ br.gov.ba.pmvc.vcapp.AboutFragment$16
+ br.gov.ba.pmvc.vcapp.AboutFragment$2
+ br.gov.ba.pmvc.vcapp.AboutFragment$3
+ br.gov.ba.pmvc.vcapp.AboutFragment$4
+ br.gov.ba.pmvc.vcapp.AboutFragment$5
+ br.gov.ba.pmvc.vcapp.AboutFragment$6
+ br.gov.ba.pmvc.vcapp.AboutFragment$7
+ br.gov.ba.pmvc.vcapp.AboutFragment$8
+ br.gov.ba.pmvc.vcapp.AboutFragment$9
+br/gov/ba/pmvc/vcapp/main/MainActivity.java
+ br.gov.ba.pmvc.vcapp.main.MainActivity
+ br.gov.ba.pmvc.vcapp.main.MainActivity$1
+ br.gov.ba.pmvc.vcapp.main.MainActivity$2
+br/gov/ba/pmvc/vcapp/main/Site.java
+ br.gov.ba.pmvc.vcapp.main.Site
+br/gov/ba/pmvc/vcapp/MyWebViewClient.java
+ br.gov.ba.pmvc.vcapp.MyWebViewClient
+br/gov/ba/pmvc/vcapp/BuildConfig.java
+ br.gov.ba.pmvc.vcapp.BuildConfig
+br/gov/ba/pmvc/vcapp/main/MainFragment.java
+ br.gov.ba.pmvc.vcapp.main.MainFragment
+ br.gov.ba.pmvc.vcapp.main.MainFragment$1
+ br.gov.ba.pmvc.vcapp.main.MainFragment$2
+ br.gov.ba.pmvc.vcapp.main.MainFragment$RecyclerViewMargin
+ br.gov.ba.pmvc.vcapp.main.MainFragment$ScreenUtils
+br/gov/ba/pmvc/vcapp/WebViewActivity.java
+ br.gov.ba.pmvc.vcapp.WebViewActivity
+ br.gov.ba.pmvc.vcapp.WebViewActivity$1
+ br.gov.ba.pmvc.vcapp.WebViewActivity$2
+ br.gov.ba.pmvc.vcapp.WebViewActivity$3
+br/gov/ba/pmvc/vcapp/main/SiteAdapter.java
+ br.gov.ba.pmvc.vcapp.main.SiteAdapter
+ br.gov.ba.pmvc.vcapp.main.SiteAdapter$1
+ br.gov.ba.pmvc.vcapp.main.SiteAdapter$2
+ br.gov.ba.pmvc.vcapp.main.SiteAdapter$ViewHolder
+br/gov/ba/pmvc/vcapp/MainApplication.java
+ br.gov.ba.pmvc.vcapp.MainApplication
+br/gov/ba/pmvc/vcapp/MyDownloadListener.java
+ br.gov.ba.pmvc.vcapp.MyDownloadListener
+ br.gov.ba.pmvc.vcapp.MyDownloadListener$1
+ br.gov.ba.pmvc.vcapp.MyDownloadListener$2
+ br.gov.ba.pmvc.vcapp.MyDownloadListener$3
+br/gov/ba/pmvc/vcapp/SplashScreenActivity.java
+ br.gov.ba.pmvc.vcapp.SplashScreenActivity
+ br.gov.ba.pmvc.vcapp.SplashScreenActivity$1
