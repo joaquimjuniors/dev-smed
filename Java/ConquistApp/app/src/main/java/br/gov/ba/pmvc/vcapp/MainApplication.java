@@ -67,6 +67,7 @@ public class MainApplication extends MultiDexApplication implements SdStateChang
         sdState = currentSmiResult.getSdState();
         Log.d(TAG, "sponsored data state : "+sdState);
         CharSequence text = "";
+
         if(sdState == SdState.SD_AVAILABLE) {
             text = "Acesso via Dados Móveis. Seu acesso a esse site é gratuito.";
         } else if(sdState == SdState.SD_NOT_AVAILABLE) {
@@ -78,7 +79,7 @@ public class MainApplication extends MultiDexApplication implements SdStateChang
             Log.d(TAG, "wifi - reason: " + currentSmiResult.getSdReason());
         }
         tempState = sdState;
-        final String tempMSG = ""+text;
+        final String tempMSG = "" + text;
         ContextCompat.getMainExecutor(context).execute(()  -> {
             ToastStack.createStateToast(context,tempMSG,duration);
         });

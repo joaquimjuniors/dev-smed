@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-
 public class AboutFragment extends Fragment {
 
     @Override

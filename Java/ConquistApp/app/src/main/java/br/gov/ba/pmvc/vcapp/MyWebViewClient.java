@@ -18,33 +18,30 @@ import java.util.List;
 
 public class MyWebViewClient extends WebViewClient {
 
-    private ProgressBar progressBar;
+//    private ProgressBar progressBar;
     private Activity activity;
     private SwipeRefreshLayout swipe;
-
 
     private Context context;
     private String webViewTitle = "";
 
     public MyWebViewClient() {}
 
-    public MyWebViewClient(Activity act, ProgressBar pb, SwipeRefreshLayout srl) {
+    public MyWebViewClient(Activity act, SwipeRefreshLayout srl) {
         activity = act;
-        progressBar = pb;
+//        progressBar = pb;
         swipe = srl;
         context = activity.getApplicationContext();
     }
 
-    @Override
-    public void onPageStarted(WebView view, String url, Bitmap favicon) {
-        progressBar.setVisibility(View.VISIBLE);
-
-    }
-
+//    @Override
+//    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+//        progressBar.setVisibility(View.VISIBLE);
+//    }
 
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-        //view.stopLoading();
+        // view.stopLoading();
         Toast toast = Toast.makeText(context, "Sem conexão com a internet!", Toast.LENGTH_SHORT);
         toast.show();
         //view.loadUrl("file:///android_asset/error.html");
@@ -52,7 +49,7 @@ public class MyWebViewClient extends WebViewClient {
 
     @Override
     public void onPageFinished(WebView view, String url) {
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
         swipe.setRefreshing(false);
         if (view.getTitle() != null && view.getTitle().length() > 0) {
             webViewTitle = view.getTitle();

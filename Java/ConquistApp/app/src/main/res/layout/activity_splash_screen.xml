@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     android:theme="@style/SplashTheme"
     android:background="@drawable/splah_gradient"
     tools:context=".SplashScreenActivity">

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/MainActivity"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false" >
 
     <include layout="@layout/content_main" />
 

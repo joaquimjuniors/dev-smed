@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rel_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/WebView"
-    android:orientation="vertical"
-    tools:context="br.gov.ba.pmvc.conquistapp.com.pmvc.conquistapp.WebViewActivity">
+    android:fitsSystemWindows="false"
+    tools:context=".WebViewActivity">
 
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progress_bar"-->
+<!--        style="?android:attr/progressBarStyleHorizontal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_marginTop="-20dp"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:indeterminate="true" />-->
 
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe"
+    <RelativeLayout
+        android:id="@+id/nonVideoLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <WebView
-            android:id="@+id/webView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
+            android:layout_height="match_parent" >
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <br.gov.ba.pmvc.vcapp.MyWebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyleHorizontal"
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </RelativeLayout>
+
+    <!-- View where the video will be shown when video goes fullscreen -->
+    <RelativeLayout
+        android:id="@+id/videoLayout"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@android:color/transparent"
-        android:layout_marginTop="-13dp"
-        android:indeterminate="true" />
+        android:layout_height="match_parent" >
+
+        <!-- View that will be shown while the fullscreen video loads. For example you could include
+        a "Loading..." message. However, in this particular example this view is actually defined in
+        view_loading_video.xml and inflated programmatically in ExampleActivity.java. The reason for
+        this is to keep the main layout (this file) cleaner. -->
+<!--        <View-->
+<!--            android:id="@+id/videoLoading"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:visibility="invisible" />-->
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

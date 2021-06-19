@@ -30,6 +30,9 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    buildFeatures {
+        viewBinding true
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -39,6 +42,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+    implementation 'androidx.navigation:navigation-ui:2.3.0'
     annotationProcessor 'android.arch.lifecycle:compiler:1.1.1'
     implementation fileTree(dir: 'libs', include: ['*.aar'])
     implementation fileTree(dir: 'libs', include: ['*.jar'])

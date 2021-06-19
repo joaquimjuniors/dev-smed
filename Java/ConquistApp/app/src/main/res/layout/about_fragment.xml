@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:theme="@style/MainActivity"
     android:background="@color/color3"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
